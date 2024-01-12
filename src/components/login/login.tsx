@@ -1,49 +1,36 @@
-import react,{ChangeEvent,MouseEvent, useState} from "react";
+
 import {Navbar} from "../navbar/navbar.tsx";
 import {NavLink,useNavigate} from "react-router-dom";
 import {AiOutlineGoogle} from 'react-icons/ai';
-import axios from "axios";
-import { clientConfig } from "../../utilties/clientConfig.tsx";
 import { useFormik } from "formik";
 import  {useSignIn}  from 'react-auth-kit';
+import 'alertifyjs/build/css/alertify.css';
+import { identityServerApi } from "../../utilties/identityServerApi.tsx";
+
 
 import "./login.css";
+import { loginSchema } from "../../schemas/index.tsx";
 
 export const Login = ()=>{
-    const loginFormik = useFormik({
+    const signIn = useSignIn();
+    const navigate = useNavigate();
+    const loginFormik  = useFormik({
         initialValues:{
             email:"",
             password:""
         },
-        onSubmit:async ()=>{
-            await loginHandler();
-        }
-    });
-    const navigate = useNavigate();
-    const signIn = useSignIn();
-    const loginHandler = async ()=>{
-       
-            await axios({
-                method: 'post',
-                url: 'http://localhost:5001/connect/token',
-                data:clientConfig(loginFormik.values.email,loginFormik.values.password),
-                headers: {
-                  'content-type': 'application/x-www-form-urlencoded'
-                }
-              }).then(x=>{
-                signIn({
-                token: x.data.access_token,
-                expiresIn:x.data.expires_in,
-                tokenType: x.data.token_type,
+        validationSchema:loginSchema,
+        onSubmit: async ()=>{
+             const result:any =await identityServerApi.login(loginFormik.values.email,loginFormik.values.password);
+             signIn({
+                token: result.data.access_token,
+                expiresIn:result.data.expires_in,
+                tokenType: result.data.token_type,
                 authState: {email:loginFormik.values.email},
                 });
                 navigate("/");
-                
-            })
-            .catch(error=>{console.log("Giriş Yapılamadı")});
         }
-              
-    
+    });
     return(
         <>
         <div className="">
@@ -55,9 +42,11 @@ export const Login = ()=>{
             <form onSubmit={loginFormik.handleSubmit}>
             <label className="d-flex my-0 py-1">Email</label>
                     <input type="text" value={loginFormik.values.email} name="email" onChange={loginFormik.handleChange} className="form-control border-dark" id="exampleFormControlInput1" placeholder="name@example.com" />
+                    <div className="text-danger d-flex my-0 py-1">{loginFormik.errors.email&&loginFormik.errors.email}</div>
                     <label className="d-flex my-0 py-1">Password</label>
                     <input value={loginFormik.values.password} name="password" onChange={loginFormik.handleChange} type="password" className="form-control border-dark" id="exampleFormControlInput1" placeholder="Password" />
-            <button type="submit" className="btn btn-dark mt-3 w-100">Log In</button>
+                    <div className="text-danger d-flex my-0 py-1">{loginFormik.errors.password&&loginFormik.errors.password}</div>
+            <button disabled={loginFormik.isSubmitting} type="submit" className="btn btn-dark mt-3 w-100">Log In</button>
             </form>
             <hr className="my-4"></hr>
             <div> 
