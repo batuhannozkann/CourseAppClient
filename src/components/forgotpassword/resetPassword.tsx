@@ -1,20 +1,18 @@
-import React from "react"
-import {NavLink} from "react-router-dom";
+
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import axios from "axios";
-import { getParameterByName } from "../../utilties/getParameterByName";
+import { identityServerApi } from "../../utilties/identityServerApi";
+import { resetPasswordSchema } from "../../schemas/index.tsx";
 export const ResetPassword = () => {
     const navigate = useNavigate();
-    const forgotPasswordFormik = useFormik({
+    const resetPasswordFormik = useFormik({
         initialValues:{
             password:"",
             rePassword:""
         },
+        validationSchema:resetPasswordSchema,
         onSubmit:async (values)=>{
-            axios.post(`http://localhost:5001/api/User/ResetPassword`,{Token:getParameterByName('token'),Email:getParameterByName('email'),Password:values.password})
-            .then(()=>{navigate("/Login")})
-            .catch(err=>console.log(err));
+           await identityServerApi.resetPassword(values.password,()=>{navigate('/login')});
         }
     });
     return(
@@ -22,11 +20,13 @@ export const ResetPassword = () => {
             <div className="col-lg-3 col-10 my-5 text-center border border-dark p-5">
                 <div className="h3">Reset Password</div>
                 <div className="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, cumque?</div>
-                <form onSubmit={forgotPasswordFormik.handleSubmit}>
+                <form onSubmit={resetPasswordFormik.handleSubmit}>
                     <label className="d-flex my-0 py-1">Password</label>
-                    <input value={forgotPasswordFormik.values.password} name="password" type="password" onChange={forgotPasswordFormik.handleChange} className="form-control border-dark" id="exampleFormControlInput1" placeholder="" />
+                    <input value={resetPasswordFormik.values.password} name="password" type="password" onChange={resetPasswordFormik.handleChange} className="form-control border-dark" id="exampleFormControlInput1" placeholder="" />
+                    <div className="text-danger d-flex my-0 py-1">{resetPasswordFormik.errors.password&&resetPasswordFormik.errors.password}</div>
                     <label className="d-flex my-0 py-1">Re-password</label>
-                    <input value={forgotPasswordFormik.values.rePassword} name="rePassword" type="password" onChange={forgotPasswordFormik.handleChange} className="form-control border-dark" id="exampleFormControlInput1" placeholder="" />
+                    <input value={resetPasswordFormik.values.rePassword} name="rePassword" type="password" onChange={resetPasswordFormik.handleChange} className="form-control border-dark" id="exampleFormControlInput1" placeholder="" />
+                    <div className="text-danger d-flex my-0 py-1">{resetPasswordFormik.errors.rePassword&&resetPasswordFormik.errors.rePassword}</div>
                     <button type="submit"  className="btn btn-dark w-100 mt-3">Send</button>
                 </form>
                 <hr className="my-4"></hr>

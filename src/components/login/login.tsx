@@ -6,12 +6,16 @@ import { useFormik } from "formik";
 import  {useSignIn}  from 'react-auth-kit';
 import 'alertifyjs/build/css/alertify.css';
 import { identityServerApi } from "../../utilties/identityServerApi.tsx";
+import { useDispatch } from "react-redux";
+import {setUser} from '../../redux/slices/user'
+import Cookies from 'js-cookie';
 
 
 import "./login.css";
 import { loginSchema } from "../../schemas/index.tsx";
 
 export const Login = ()=>{
+    const dispatch = useDispatch();
     const signIn = useSignIn();
     const navigate = useNavigate();
     const loginFormik  = useFormik({
@@ -21,16 +25,21 @@ export const Login = ()=>{
         },
         validationSchema:loginSchema,
         onSubmit: async ()=>{
-             const result:any =await identityServerApi.login(loginFormik.values.email,loginFormik.values.password);
+            const result:any =await identityServerApi.login(loginFormik.values.email,loginFormik.values.password);
+            var user:any;
+            await identityServerApi.getUserInfoByToken(result.data.access_token).then((x:any)=>{user=x.data});
              signIn({
                 token: result.data.access_token,
                 expiresIn:result.data.expires_in,
                 tokenType: result.data.token_type,
-                authState: {email:loginFormik.values.email},
-                });
+                refreshToken:result.data.refresh_token,
+                refreshTokenExpireIn:36000,
+                authState: {email:loginFormik.values.email,fullname:user.fullname}}),
                 navigate("/");
+                
+                
         }
-    });
+    });;
     return(
         <>
         <div className="">

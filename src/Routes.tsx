@@ -5,6 +5,8 @@ import {Routes,Route} from "react-router-dom";
 import { RequireAuth } from 'react-auth-kit'
 import { ForgotPassword } from './components/forgotpassword/forgotPassword.tsx';
 import { ResetPassword } from './components/forgotpassword/resetPassword.tsx';
+import {User} from './components/userinfo/userinfo.tsx'
+
 
 export const RouteList = ()=>{
     return(
@@ -14,11 +16,9 @@ export const RouteList = ()=>{
             <Route path="SignUp" element={<SignUp/>}/>
             <Route path="ForgotPassword" element={<ForgotPassword/>}/>
             <Route path="ResetPassword" element={<ResetPassword/>}></Route>
-            <Route path={'/secure'} element={
+            <Route path={'User'} element={
         <RequireAuth loginPath={'/login'}>
-          <div>
-            Secure
-          </div>
+          <User></User>
         </RequireAuth>
       }/>
         </Routes>

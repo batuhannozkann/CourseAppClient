@@ -1,8 +1,6 @@
 import react from "react";
 import {Navbar} from "../navbar/navbar.tsx";
 import {NavLink} from "react-router-dom";
-import {AiOutlineGoogle} from 'react-icons/ai';
-import axios from "axios";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import "./signup.css";

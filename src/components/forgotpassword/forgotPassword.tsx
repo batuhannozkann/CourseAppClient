@@ -2,16 +2,17 @@ import React from "react"
 import {NavLink,useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
 import axios from "axios";
+import { identityServerApi } from "../../utilties/identityServerApi";
+import { forgotPasswordSchema } from "../../schemas/index.tsx";
 
 export const ForgotPassword = ()=>{
     const navigate = useNavigate();
     const forgotPasswordFormik = useFormik({
     initialValues:
     {email:""},
+    validationSchema:forgotPasswordSchema,
     onSubmit:async (values)=>{
-       await axios.get(`http://localhost:5001/api/User/GenerateResetPasswordToken?email=${values.email}`)
-        .then(x=>navigate('/login'))
-        .catch(err=>err.response);
+      identityServerApi.forgotPassword(values.email,()=>navigate("/login"));
     }
 });
     return(
@@ -22,6 +23,7 @@ export const ForgotPassword = ()=>{
                 <form onSubmit={forgotPasswordFormik.handleSubmit}>
                     <label className="d-flex my-0 py-1">Email</label>
                     <input value={forgotPasswordFormik.values.email} name="email" type="email" onChange={forgotPasswordFormik.handleChange} className="form-control border-dark" id="exampleFormControlInput1" placeholder="name@example.com" />
+                    <div className="text-danger d-flex my-0 py-1">{forgotPasswordFormik.errors.email&&forgotPasswordFormik.errors.email}</div>
                     <button type="submit"  className="btn btn-dark w-100 mt-3">Send</button>
                 </form>
                 <hr className="my-4"></hr>

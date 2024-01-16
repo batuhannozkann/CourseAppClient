@@ -1,10 +1,12 @@
-import React from "react";
+import React,{useState} from "react";
 import {Navbar} from '../navbar/navbar.tsx';
 import {Header} from '../header/header.tsx';
 import {Card} from "../../common/card.tsx";
 import  "./mainpage.css"
+import Cookies from 'js-cookie'
 
 export const MainPage = ()=>{
+   
     return(
         <>
         <Navbar/>

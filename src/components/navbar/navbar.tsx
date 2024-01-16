@@ -1,14 +1,18 @@
-import React from "react";
+import React ,{useEffect,useState} from "react";
 import  "./navbar.css"
 import { NavLink } from "react-router-dom";
-import {useIsAuthenticated} from 'react-auth-kit';
-import {useAuthUser} from 'react-auth-kit'
-import { useSignOut } from 'react-auth-kit'
+import {useIsAuthenticated} from 'react-auth-kit'
+import {useSignOut} from 'react-auth-kit';
+import {useAuthUser} from"react-auth-kit";
+import Cookies from 'js-cookie';
 
 export const Navbar = ()=>{
     const isAuthenticated = useIsAuthenticated();
+    const authUser = useAuthUser();
     const signOut = useSignOut();
-    console.log(isAuthenticated());
+    if(isAuthenticated()){
+        console.log(authUser());
+    }
     return(
         <>
 <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom border-dark">
@@ -65,11 +69,18 @@ export const Navbar = ()=>{
             <div className="ms-lg-2 my-sm-2 my-lg-0 d-inline-block">
                 <div className="">
                                 {isAuthenticated()?<><button
-                                        onClick={(event:React.MouseEvent<HTMLButtonElement>)=>{signOut()}}
+                                        onClick={(event:React.MouseEvent<HTMLButtonElement>)=>{signOut();Cookies.remove('userInfo');}}
                                         className="btn btn-sm btn-outline-dark"
                                     >
                                         Çıkış Yap
-                                    </button></>:<><NavLink
+                                    </button>
+                                    <NavLink 
+                                    to={`/User`}
+                                    className={({ isActive, isPending }) => isPending ? "btn btn-sm ms-2" : isActive ? "btn btn-sm ms-2 " : "btn btn-sm  ms-2"}
+                                    >
+                                    {authUser()?.fullname}</NavLink>
+                                    </>
+                                    :<><NavLink
                                         to="/Login"
                                         className={({ isActive, isPending }) => isPending ? "btn btn-sm btn-outline-dark" : isActive ? "btn btn-sm btn-outline-dark " : "btn btn-sm btn-outline-dark"}
                                     >
