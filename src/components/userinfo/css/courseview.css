@@ -1,0 +1,421 @@
+.course-view .project {
+    margin: 15px 0;
+}
+
+.course-view .no-gutter .project {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.course-view .has-spacer {
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+.course-view .has-spacer-extra-space {
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+.course-view .has-side-spacer {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.course-view .project-title {
+    font-size: 1.25rem;
+}
+
+.course-view .project-skill {
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.06rem;
+}
+
+.course-view .project-info-box {
+    margin: 15px 0;
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 5px;
+}
+
+.course-view .project-info-box p {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #d5dadb;
+}
+
+.course-view .project-info-box p:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.course-view img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    -webkit-backface-visibility: hidden;
+}
+
+.course-view .rounded {
+    border-radius: 5px !important;
+}
+
+.course-view .btn-xs.btn-icon {
+    width: 34px;
+    height: 34px;
+    max-width: 34px !important;
+    max-height: 34px !important;
+    font-size: 10px;
+    line-height: 34px;
+}
+
+/* Facebook button */
+.course-view .btn-facebook, .course-view .btn-facebook:active, .course-view .btn-facebook:focus {
+    color: #fff !important;
+    background: #4e68a1;
+    border: 2px solid #4e68a1;
+}
+
+.course-view .btn-facebook:hover {
+    color: #fff !important;
+    background: #3b4f7a;
+    border: 2px solid #3b4f7a;
+}
+
+.course-view .btn-facebook-link, .course-view .btn-facebook-link:active, .course-view .btn-facebook-link:focus {
+    color: #4e68a1 !important;
+    background: transparent;
+    border: none;
+}
+
+.course-view .btn-facebook-link:hover {
+    color: #3b4f7a !important;
+}
+
+.course-view .btn-outline-facebook, .course-view .btn-outline-facebook:active, .course-view .btn-outline-facebook:focus {
+    color: #4e68a1 !important;
+    background: transparent;
+    border: 2px solid #4e68a1;
+}
+
+.course-view .btn-outline-facebook:hover {
+    color: #fff !important;
+    background: #4e68a1;
+    border: 2px solid #4e68a1;
+}
+
+/* Twitter button */
+.course-view .btn-twitter, .course-view .btn-twitter:active, .course-view .btn-twitter:focus {
+    color: #fff !important;
+    background: #65b5f2;
+    border: 2px solid #65b5f2;
+}
+
+.course-view .btn-twitter:hover {
+    color: #fff !important;
+    background: #5294c6;
+    border: 2px solid #5294c6;
+}
+
+.course-view .btn-twitter-link, .course-view .btn-twitter-link:active, .course-view .btn-twitter-link:focus {
+    color: #65b5f2 !important;
+    background: transparent;
+    border: none;
+}
+
+.course-view .btn-twitter-link:hover {
+    color: #5294c6 !important;
+}
+
+.course-view .btn-outline-twitter, .course-view .btn-outline-twitter:active, .course-view .btn-outline-twitter:focus {
+    color: #65b5f2 !important;
+    background: transparent;
+    border: 2px solid #65b5f2;
+}
+
+.course-view .btn-outline-twitter:hover {
+    color: #fff !important;
+    background: #65b5f2;
+    border: 2px solid #65b5f2;
+}
+
+/* Google button */
+.course-view .btn-google, .course-view .btn-google:active, .course-view .btn-google:focus {
+    color: #fff !important;
+    background: #e05d4b;
+    border: 2px solid #e05d4b;
+}
+
+.course-view .btn-google:hover {
+    color: #fff !important;
+    background: #b94c3d;
+    border: 2px solid #b94c3d;
+}
+
+.course-view .btn-google-link, .course-view .btn-google-link:active, .course-view .btn-google-link:focus {
+    color: #e05d4b !important;
+    background: transparent;
+    border: none;
+}
+
+.course-view .btn-google-link:hover {
+    color: #b94c3d !important;
+}
+
+.course-view .btn-outline-google, .course-view .btn-outline-google:active, .course-view .btn-outline-google:focus {
+    color: #e05d4b !important;
+    background: transparent;
+    border: 2px solid #e05d4b;
+}
+
+.course-view .btn-outline-google:hover {
+    color: #fff !important;
+    background: #e05d4b;
+    border: 2px solid #e05d4b;
+}
+
+/* LinkedIn button */
+.course-view .btn-linkedin, .course-view .btn-linkedin:active, .course-view .btn-linkedin:focus {
+    color: #fff !important;
+    background: #2083bc;
+    border: 2px solid #2083bc;
+}
+
+.course-view .btn-linkedin:hover {
+    color: #fff !important;
+    background: #186592;
+    border: 2px solid #186592;
+}
+
+.course-view .btn-linkedin-link, .course-view .btn-linkedin-link:active, .course-view .btn-linkedin-link:focus {
+    color: #2083bc !important;
+    background: transparent;
+    border: none;
+}
+
+.course-view .btn-linkedin-link:hover {
+    color: #186592 !important;
+}
+
+.course-view .btn-outline-linkedin, .course-view .btn-outline-linkedin:active, .course-view .btn-outline-linkedin:focus {
+    color: #2083bc !important;
+    background: transparent;
+    border: 2px solid #2083bc;
+}
+
+.course-view .btn-outline-linkedin:hover {
+    color: #fff !important;
+    background: #2083bc;
+    border: 2px solid #2083bc;
+}
+
+/* Pinterest button */
+.course-view .btn-pinterest, .course-view .btn-pinterest:active, .course-view .btn-pinterest:focus    {
+    color: #fff !important;
+    background: #d2373b;
+    border: 2px solid #d2373b;
+}
+
+.course-view .btn-pinterest:hover {
+    color: #fff !important;
+    background: #ad2c2f;
+    border: 2px solid #ad2c2f;
+}
+
+.course-view .btn-pinterest-link, .course-view .btn-pinterest-link:active, .course-view .btn-pinterest-link:focus {
+    color: #d2373b !important;
+    background: transparent;
+    border: none;
+}
+
+.course-view .btn-pinterest-link:hover {
+    color: #ad2c2f !important;
+}
+
+.course-view .btn-outline-pinterest, .course-view .btn-outline-pinterest:active, .course-view .btn-outline-pinterest:focus {
+    color: #d2373b !important;
+    background: transparent;
+    border: 2px solid #d2373b;
+}
+
+.course-view .btn-outline-pinterest:hover {
+    color: #fff !important;
+    background: #d2373b;
+    border: 2px solid #d2373b;
+}
+
+/* Dribbble button */
+.course-view .btn-dribbble, .course-view .btn-dribbble:active, .course-view .btn-dribbble:focus {
+    color: #fff !important;
+    background: #ec5f94;
+    border: 2px solid #ec5f94;
+}
+
+.course-view .btn-dribbble:hover {
+    color: #fff !important;
+    background: #b4446e;
+    border: 2px solid #b4446e;
+}
+
+.course-view .btn-dribbble-link, .course-view .btn-dribbble-link:active, .course-view .btn-dribbble-link:focus {
+    color: #ec5f94 !important;
+    background: transparent;
+    border: none;
+}
+
+.course-view .btn-dribbble-link:hover {
+    color: #b4446e !important;
+}
+
+.course-view .btn-outline-dribbble, .course-view .btn-outline-dribbble:active, .course-view .btn-outline-dribbble:focus {
+    color: #ec5f94 !important;
+    background: transparent;
+    border: 2px solid #ec5f94;
+}
+
+.course-view .btn-outline-dribbble:hover {
+    color: #fff !important;
+    background: #ec5f94;
+    border: 2px solid #ec5f94;
+}
+
+/* Instagram button */
+.course-view .btn-instagram, .course-view .btn-instagram:active, .course-view .btn-instagram:focus {
+    color: #fff !important;
+    background: #4c5fd7;
+    border: 2px solid #4c5fd7;
+}
+
+.course-view .btn-instagram:hover {
+    color: #fff !important;
+    background: #4252ba;
+    border: 2px solid #4252ba;
+}
+
+.course-view .btn-instagram-link, .course-view .btn-instagram-link:active, .course-view .btn-instagram-link:focus {
+    color: #4c5fd7 !important;
+    background: transparent;
+    border: none;
+}
+
+.course-view .btn-instagram-link:hover {
+    color: #4252ba !important;
+}
+
+.course-view .btn-outline-instagram, .course-view .btn-outline-instagram:active, .course-view .btn-outline-instagram:focus {
+    color: #4c5fd7 !important;
+    background: transparent;
+    border: 2px solid #4c5fd7;
+}
+
+.course-view .btn-outline-instagram:hover {
+    color: #fff !important;
+    background: #4c5fd7;
+    border: 2px solid #4c5fd7;
+}
+
+/* YouTube button */
+.course-view .btn-youtube, .course-view .btn-youtube:active, .course-view .btn-youtube:focus {
+    color: #fff !important;
+    background: #e52d27;
+    border: 2px solid #e52d27;
+}
+
+.course-view .btn-youtube:hover {
+    color: #fff !important;
+    background: #b31217;
+    border: 2px solid #b31217;
+}
+
+.course-view .btn-youtube-link, .course-view .btn-youtube-link:active, .course-view .btn-youtube-link:focus {
+    color: #e52d27 !important;
+    background: transparent;
+    border: none;
+}
+
+.course-view .btn-youtube-link:hover {
+    color: #b31217 !important;
+}
+
+.course-view .btn-outline-youtube, .course-view .btn-outline-youtube:active, .course-view .btn-outline-youtube:focus {
+    color: #e52d27 !important;
+    background: transparent;
+    border: 2px solid #e52d27;
+}
+
+.course-view .btn-outline-youtube:hover {
+    color: #fff !important;
+    background: #e52d27;
+    border:     2px solid #e52d27;
+}
+
+.course-view .btn-xs.btn-icon span,
+.course-view .btn-xs.btn-icon i {
+    margin-top: -1px;
+    margin-right: -1px;
+}
+
+.course-view .btn-icon.btn-circle span,
+.course-view .btn-icon.btn-circle i {
+    margin-top: -1px;
+    margin-right: -1px;
+}
+
+.course-view .btn-icon i {
+    margin-top: -1px;
+}
+
+.course-view .btn-icon span,
+.course-view .btn-icon i {
+    display: block;
+    line-height: 50px;
+}
+
+.course-view a.btn,
+.course-view a.btn-social {
+    display: inline-block;
+}
+
+.course-view .mr-5 {
+    margin-right: 5px !important;
+}
+
+.course-view .mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.course-view .btn-facebook,
+.course-view .btn-facebook:active,
+.course-view .btn-facebook:focus {
+    color: #fff !important;
+    background: #4e68a1;
+    border: 2px solid #4e68a1;
+}
+
+.course-view .btn-circle {
+    border-radius: 50% !important;
+}
+
+.course-view .project-info-box p {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #d5dadb;
+}
+
+.course-view p {
+    font-family: "Barlow", sans-serif !important;
+    font-weight: 300;
+    font-size: 1rem;
+    color: #686c6d;
+    letter-spacing: 0.03rem;
+    margin-bottom: 10px;
+}
+
+.course-view b,
+.course-view strong {
+    font-weight: 700 !important;
+}

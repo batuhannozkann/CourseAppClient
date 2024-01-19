@@ -99,4 +99,29 @@ export const identityServerApi = {
          })
          return userInfo;
        }
+       ,getUserInfoFromService:async()=>{
+        return await axios({
+          method: 'get',
+          url: `${identityServerUrl}/api/User/GetUser?email=${JSON.parse(Cookies.get('_auth_state')).email}`,
+          headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+          }
+        }).then()
+      .catch(error=>{
+          console.log(error)
+        })
+       },
+       updateUserInfoFromService:async(data:any)=>{
+        return await axios({
+          method: 'put',
+          url: `${identityServerUrl}/api/User/Update`,
+          data:data,
+          headers: {
+          'content-type': 'application/json',
+          }
+        }).then().catch(error=>{
+          console.log(error)
+        })
+
+       }
 }

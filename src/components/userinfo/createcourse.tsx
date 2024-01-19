@@ -4,20 +4,17 @@ import {Api} from '../../utilties/OcelotApi'
 import { identityServerApi } from '../../utilties/identityServerApi'
 import {Navbar} from '../navbar/navbar'
 import Sidebar from '../sidebar/sidebar'
-import  Account  from './account';
-import { Course } from './course';
+import { Account } from './account';
+import { CreateCourseForm } from './createcourseform'
 import Layout from '../layouts/layout'
-import CourseDetail from './coursedetail'
 
-export const User = ()=>{
+
+export const CreateCourse = ()=>{
     const [userInfo,setUserInfo]:any = useState();
-    useEffect(()=>{
-        identityServerApi.getUserInfo().then((x:any)=>setUserInfo(x.data));
-    },[])
-
+    
     return(
         <Layout>
-          <Account/>
+          <CreateCourseForm></CreateCourseForm>
         </Layout>
     )
-} 
+}

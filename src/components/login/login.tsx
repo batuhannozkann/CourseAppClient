@@ -7,15 +7,13 @@ import  {useSignIn}  from 'react-auth-kit';
 import 'alertifyjs/build/css/alertify.css';
 import { identityServerApi } from "../../utilties/identityServerApi.tsx";
 import { useDispatch } from "react-redux";
-import {setUser} from '../../redux/slices/user'
-import Cookies from 'js-cookie';
+
 
 
 import "./login.css";
 import { loginSchema } from "../../schemas/index.tsx";
 
 export const Login = ()=>{
-    const dispatch = useDispatch();
     const signIn = useSignIn();
     const navigate = useNavigate();
     const loginFormik  = useFormik({
@@ -39,7 +37,7 @@ export const Login = ()=>{
                 
                 
         }
-    });;
+    });
     return(
         <>
         <div className="">

@@ -12,3 +12,6 @@
   .logo{
     height:4rem;
   }
+  .border-bottom{
+    border-color: aliceblue !important;
+  }
