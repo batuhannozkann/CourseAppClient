@@ -1,30 +1,25 @@
 import {createRefresh} from 'react-auth-kit';
 import {identityServerApi} from './identityServerApi'
 
- const refresh = createRefresh({
-  interval:10,
-  refreshApiCallback: async (param:any): Promise<any> => {
+const my_refresh_api = createRefresh({
+  interval: 10, // The time in sec to refresh the Access token 
+  refreshApiCallback: async (param:any): Promise<any>  =>  {
     try {
-      // Gerçek bir API çağrısı yapılmalıdır
-      console.log(param);
-      const response = await identityServerApi.getTokenByRefreshToken(param.refreshToken);
-      console.log(response.data);
+      const response:any = await identityServerApi.getTokenByRefreshToken(param.refreshToken);
       console.log("Refreshing");
-
-      // Gerçek API yanıtlarına uygun şekilde değerleri ayarlayın
       return {
         isSuccess: true,
-        newAuthToken: response.data.access_token,
-        newAuthTokenExpireIn: response.data.expires_in,
-        newRefreshToken:response.data.refresh_token,
-        newRefreshTokenExpiresIn: 3600,
+        newAuthToken: response.data.token,
+        newAuthTokenExpireIn: 10,
+        newRefreshTokenExpiresIn: 60
       };
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error);
       return {
         isSuccess: false
       };
     }
   }
-});
-export default refresh;
+})
+export default my_refresh_api;

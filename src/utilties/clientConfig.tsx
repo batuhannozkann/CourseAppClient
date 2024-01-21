@@ -18,5 +18,14 @@ clientConfigWithRefreshToken : (refreshToken:string)=>{
             refresh_token:refreshToken
             
     })
+},
+clientConfig:()=>{
+    return (
+        {
+            client_id:"WebClient",
+            client_secret:"secret",
+            grant_type:"client_credentials",
+    }
+    )
 }
 }

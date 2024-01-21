@@ -8,7 +8,8 @@ export const loginSchema=yup.object().shape(
     }
 );
 export const signUpSchema=yup.object().shape({
-    fullName:yup.string().required('İsim soyisim giriniz.'),
+    firstname:yup.string().required('İsim giriniz.'),
+    lastname:yup.string().required('Soyisim giriniz.'),
     email:yup.string().email('Geçerli bir email giriniz').required('Email girmek zorunludur'),
     password:yup.string().required('Şifre giriniz').min(7,'Şifre,7 karakterden büyük veya eşit olmalıdır.0 Karakter girdiniz.').matches(
         /^(?=.*[a-z])(?=.*[A-Z])/,

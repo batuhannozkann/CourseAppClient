@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {Api} from './../../utilties/OcelotApi'
+import useApi, {Api} from './../../utilties/OcelotApi'
 import "./css/coursedetail.css";
 import { useFormik } from 'formik';
 
@@ -12,22 +12,23 @@ const CourseDetail = ({id}:any) => {
         courseDetailFormik.setFieldValue('file', file);
         
       };
+    const {sendRequest} = useApi();
     useEffect(()=>{
-        Api.get('catalog','course',"",`GetById/?id=${id}`).then((x:any)=>{
-            setCourse(x.data.data)
+        sendRequest('get','catalog','course',"",`GetById/?id=${id}`).then((x:any)=>{
+            setCourse(x.data)
             console.log(x.data.data);
-            courseDetailFormik.setFieldValue('name', x.data.data.name);
-            courseDetailFormik.setFieldValue('price', x.data.data.price);
-            courseDetailFormik.setFieldValue('description', x.data.data.description);
-            courseDetailFormik.setFieldValue('duration', x.data.data.feature.duration);
-            courseDetailFormik.setFieldValue('categoryId', x.data.data.category.id);
-            courseDetailFormik.setFieldValue('id', x.data.data.id);
-            courseDetailFormik.setFieldValue('pictureUrl', x.data.data.picture);
+            courseDetailFormik.setFieldValue('name', x.data.name);
+            courseDetailFormik.setFieldValue('price', x.data.price);
+            courseDetailFormik.setFieldValue('description', x.data.description);
+            courseDetailFormik.setFieldValue('duration', x.data.duration);
+            courseDetailFormik.setFieldValue('categoryId', x.data.category.id);
+            courseDetailFormik.setFieldValue('id', x.data.id);
+            courseDetailFormik.setFieldValue('pictureUrl', x.data.picture);
         });
         if(counter==0)
     {
-      Api.get('catalog','category').then((x:any)=>{
-        x.data.data.map((x:Category)=>{
+      sendRequest('get','catalog','category').then((x:any)=>{
+        x.data.map((x:Category)=>{
           setCategories(prev=>[...prev,x]);
         })
       });
@@ -58,19 +59,19 @@ const CourseDetail = ({id}:any) => {
         } 
         if(values.file=="")
         {
-            Api.put('catalog','course',courseUpdateDto).then((x)=>{window.location.reload()});
+            sendRequest('put','catalog','course',courseUpdateDto).then((x)=>{window.location.reload()});
         }
         else{
-            Api.file("photostock","photo",{file:values.file}).then(((x:any)=>{
+          sendRequest('file',"photostock","photo",{file:values.file}).then(((x:any)=>{
                 courseUpdateDto.picture=x.data.data;
-                Api.put('catalog','course',courseUpdateDto).then((x)=>{window.location.reload()});
+                Api.put('catalog','course',courseUpdateDto).then((x:any)=>{window.location.reload()});
             }))
         }
         
     },
   });
   return (
-    <div className="container-xl px-4 mt-4">
+    <div className="container-xl px-4 mt-4 edit-card">
       <nav className="nav nav-borders">
         <a className="nav-link active ms-0" href="#" target="__blank">Profile</a>
         <a className="nav-link" href="#" target="__blank">Billing</a>

@@ -1,26 +1,39 @@
 import React from "react";
 import "./card.css";
+import { FaStar } from "react-icons/fa";
 
 export const Card = () =>{
     return(
-         <div className="card-item mx-4 col-lg-3 col-sm-12 my-lg-0 my-3">
-         <div className="card-image row mx-0"><img className="px-0 card-image-content" src="src/assets/card-image.png"></img></div>
-         <div className="cardBottomSection row my-2 mx-0 ">Category</div>
-         <div className="card-header row mx-0 my-0 h5">Blog title heading will go here</div>
-         <div className="row mx-0 my-2">
-            <div className="p-0 me-2 col-2">
-                <img className="profile img-fluid" src="src/assets/gentlemen-1.jpg"></img>
-            </div>
-            <div className="col-9">
-                <div className="h6 py-0 my-0 row">
-                    Full Name
+       
+            <div className="col-xl-3 col-lg-3 col-md-6 col-12">
+            {/* Card */}
+            <div className="card card-hover course-card mb-2">
+              <a href="blog-single.html">
+                <img style={{height:'25vh'}} src="https://firebasestorage.googleapis.com/v0/b/courseapplication-f3e34.appspot.com/o/data%2Frandom%2Fasp-1-550x422-1.jpg?alt=media&token=09bb93de-393d-4877-be29-950b147ed4b3" className="card-img-top rounded-top-md" alt="" />
+              </a>
+              {/* Card Body */}
+              <div className="card-body">
+                <a href="#" className="badge bg-primary mb-2">Courses</a>
+                <h5 className="card-title">
+                  <a href="blog-single.html" className="text-inherit">
+                    How to become a modern Stack Developer in 2020
+                  </a>
+                  <br/>
+                  {Array(4).fill(0).map((_, index) => <i key={index} className="fa fa-star"><FaStar /></i>)}
+                </h5>
+                {/* Media Content */}
+                <div className="row align-items-center g-0 mt-4">
+                  <div className="col lh-1">
+                    <h6 className="mb-1">Reva Yokk</h6>
+                    <p className="fs-6 mb-0">September 05, 2020</p>
+                  </div>
+                  <div className="col-auto">
+                    <p className="fs-6 mb-0">20 Min Read</p>
+                  </div>
                 </div>
-                <div className="row">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, dolore.
-                </div>
+              </div>
             </div>
-         </div>
-        </div>
+          </div>
        )
     
 }

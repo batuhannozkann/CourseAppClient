@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import { identityServerApi } from "../../utilties/identityServerApi";
 
 const Account = () => {
-    const[user,setUser] = useState<any>();
+    const[user,setUser]:any = useState<any>();
     const handleFileChange = (event:any) => {
         const file = event.target.files[0];
         accountFormik.setFieldValue('file', file);
@@ -20,9 +20,9 @@ const Account = () => {
             accountFormik.setFieldValue('lastname', x.data.data.lastName);
             accountFormik.setFieldValue('email', x.data.data.email);
             accountFormik.setFieldValue('city', x.data.data.city);
-            accountFormik.setFieldValue('country', x.data.data.country);
-            accountFormik.setFieldValue('xAddress', x.data.data.xAddress);
-            accountFormik.setFieldValue('linkedInAddress', x.data.data.linkedInAddress);
+            accountFormik.setFieldValue('country', x.data.data.country?x.data.data.country:"");
+            accountFormik.setFieldValue('xAddress', x.data.data.xAddress?x.data.data.xAddress:"");
+            accountFormik.setFieldValue('linkedInAddress', x.data.data.linkedInAddress?x.data.data.linkedInAddress:"");
             accountFormik.setFieldValue('picture', x.data.data.picture);
             });
     },[])

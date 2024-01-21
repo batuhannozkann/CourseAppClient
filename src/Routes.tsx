@@ -1,8 +1,8 @@
 import {MainPage} from './components/mainpage/mainPage.tsx';
 import { Login } from "./components/login/login.tsx";
 import { SignUp } from './components/signup/signup.tsx';
-import {Routes,Route} from "react-router-dom";
-import { RequireAuth } from 'react-auth-kit'
+import {Routes,Route, BrowserRouter} from "react-router-dom";
+import {RequireAuth, useIsAuthenticated} from 'react-auth-kit';
 import { ForgotPassword } from './components/forgotpassword/forgotPassword.tsx';
 import { ResetPassword } from './components/forgotpassword/resetPassword.tsx';
 import {User} from './components/userinfo/userinfo.tsx'
@@ -16,6 +16,7 @@ import { CourseView } from './components/userinfo/courseview.tsx';
 
 
 export const RouteList = ()=>{
+  const isAuthenticated = useIsAuthenticated();
     return(
         <Routes>
             <Route path="/" element={<MainPage/>}/>
@@ -23,20 +24,20 @@ export const RouteList = ()=>{
             <Route path="SignUp" element={<SignUp/>}/>
             <Route path="ForgotPassword" element={<ForgotPassword/>}/>
             <Route path="ResetPassword" element={<ResetPassword/>}></Route>
-            <Route path={'User'} element={
+            <Route path='User' element={
         <RequireAuth loginPath={'/login'}>
           <User></User>
         </RequireAuth>
-      }/>
+      }/>path="User/SaleCourses"
       <Route path="User/SaleCourses" element={
-        <RequireAuth loginPath="/login">
+
           <SaleCourses/>
-        </RequireAuth>
+
       } />
       <Route path="User/PurchasedCourses" element={
-        <RequireAuth loginPath="/login">
+
           <PurchasedCourses/>
-        </RequireAuth>
+
       } />
       <Route path="User/CreateCourse" element={
         <RequireAuth loginPath="/login">

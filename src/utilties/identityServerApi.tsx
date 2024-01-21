@@ -22,10 +22,10 @@ export const identityServerApi = {
             AlertifyLibrary.AlertifyAlert('Login error',error.response.data.error);
             console.log(error)});
     },
-    signup: (fullName: string, email: string, password: string, callbackFunction: () => void) => {
+    signup: (firstName: string,lastName:string, email: string, password: string, callbackFunction: () => void) => {
         axios.post(
           `${identityServerUrl}/api/User/Register`,
-          { FullName: fullName, UserName: email, Email: email, Password: password, City: "Istanbul" },
+          { firstName: firstName,lastName:lastName, UserName: email, Email: email, Password: password, City: "Istanbul" },
         )
           .then(() => {
             axios.get(`http://localhost:5001/api/User/GenerateToken?email=${email}`)
@@ -99,10 +99,10 @@ export const identityServerApi = {
          })
          return userInfo;
        }
-       ,getUserInfoFromService:async()=>{
+       ,getUserInfoFromService:async(email?:string)=>{
         return await axios({
           method: 'get',
-          url: `${identityServerUrl}/api/User/GetUser?email=${JSON.parse(Cookies.get('_auth_state')).email}`,
+          url: `${identityServerUrl}/api/User/GetUser?email=${email?email:JSON.parse(Cookies.get('_auth_state')).email}`,
           headers: {
             'content-type': 'application/x-www-form-urlencoded',
           }
@@ -123,5 +123,23 @@ export const identityServerApi = {
           console.log(error)
         })
 
+       },
+       getClientToken:async()=>{
+        return await axios({
+          method: 'post',
+          url: `${identityServerUrl}/connect/token`,
+          data:{
+          client_id:"WebClient",
+          client_secret:'secret',
+          grant_type:"client_credentials"
+        },
+          headers: {
+            'content-type': 'application/x-www-form-urlencoded'
+          }
+        })
+      .catch(error=>{
+          AlertifyLibrary.AlertifyAlert('Login error',error.response.data.error);
+          console.log(error)});
        }
-}
+
+       }

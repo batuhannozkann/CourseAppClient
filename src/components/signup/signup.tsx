@@ -1,4 +1,4 @@
-import react from "react";
+
 import {Navbar} from "../navbar/navbar.tsx";
 import {NavLink} from "react-router-dom";
 import { useFormik } from "formik";
@@ -10,17 +10,18 @@ export const SignUp = ()=>{
 const navigate = useNavigate();
 const signUpFormik = useFormik({
     initialValues:
-    {fullName:"",
+    {firstname:"",
+    lastname:"",
     email:"",
     password:"",
     rePassword:""},
     validationSchema:signUpSchema,
     onSubmit:(values)=>{
-        submitHandler(values.fullName,values.email,values.password);
+        submitHandler(values.firstname,values.lastname,values.email,values.password);
     }
 });
-const submitHandler = (fullName:string,email:string,password:string)=>{
-    identityServerApi.signup(fullName,email,password,()=>{return navigate('/login')});
+const submitHandler = (firstname:string,lastname:string,email:string,password:string)=>{
+    identityServerApi.signup(firstname,lastname,email,password,()=>{return navigate('/login')});
 }
 return(
         <>
@@ -31,9 +32,12 @@ return(
                 <div className="h3">Sign Up</div>
                 <div className="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, cumque?</div>
                 <form onSubmit={signUpFormik.handleSubmit}>
-                    <label className="d-flex my-0 py-1">Full Name</label>
-                    <input value={signUpFormik.values.fullName} name="fullName" onChange={signUpFormik.handleChange} type="text" className="form-control border-dark" id="exampleFormControlInput1" placeholder="Name" />
-                    <div className="text-danger d-flex my-0 py-1">{signUpFormik.errors.fullName&&signUpFormik.errors.fullName}</div>
+                    <label className="d-flex my-0 py-1">First Name</label>
+                    <input value={signUpFormik.values.firstname} name="firstname" onChange={signUpFormik.handleChange} type="text" className="form-control border-dark" id="exampleFormControlInput1" placeholder="Name" />
+                    <div className="text-danger d-flex my-0 py-1">{signUpFormik.errors.firstname&&signUpFormik.errors.firstname}</div>
+                    <label className="d-flex my-0 py-1">Last Name</label>
+                    <input value={signUpFormik.values.lastname} name="lastname" onChange={signUpFormik.handleChange} type="text" className="form-control border-dark" id="exampleFormControlInput1" placeholder="Name" />
+                    <div className="text-danger d-flex my-0 py-1">{signUpFormik.errors.lastname&&signUpFormik.errors.lastname}</div>
                     <label className="d-flex my-0 py-1">Email</label>
                     <input value={signUpFormik.values.email} name="email" type="email" onChange={signUpFormik.handleChange} className="form-control border-dark" id="exampleFormControlInput1" placeholder="name@example.com" />
                     <div className="text-danger d-flex my-0 py-1">{signUpFormik.errors.email&&signUpFormik.errors.email}</div>

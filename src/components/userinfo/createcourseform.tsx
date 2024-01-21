@@ -1,18 +1,19 @@
 import "./css/createcourse.css"
 import { useFormik } from "formik";
-import {Api} from '../../utilties/OcelotApi';
+import useApi from '../../utilties/OcelotApi';
 import {useEffect, useRef, useState} from 'react';
 import { AlertifyLibrary, NotificationPosition } from "../../utilties/Alertify";
 
 export const CreateCourseForm = ()=>{
+  const {sendRequest} = useApi();
   const fileInputRef:any = useRef<HTMLInputElement | null>(null);
   const [categories,setCategories] = useState<Category[]>([]);
   const [counter,setCounter] = useState(0);
   useEffect(()=>{
     if(counter==0)
     {
-      Api.get('catalog','category').then((x:any)=>{
-        x.data.data.map((x:Category)=>{
+      sendRequest('get','catalog','category').then((x:any)=>{
+        x.data.map((x:Category)=>{
           setCategories(prev=>[...prev,x]);
         })
       });
@@ -42,9 +43,9 @@ export const CreateCourseForm = ()=>{
         CategoryId: createCourseFormik.values.categoryId,
         Feature: {Duration:createCourseFormik.values.duration}
       }
-      Api.file('photostock','photo',{file:createCourseFormik.values.file}).then((x:any)=>{
+      sendRequest('file','photostock','photo',{file:createCourseFormik.values.file}).then((x:any)=>{
         courseCreateDto.Picture=(x.data.data);
-        Api.post('catalog','course',courseCreateDto
+        sendRequest('post','catalog','course',courseCreateDto
           ).then((x)=>{
           createCourseFormik.resetForm();
           if(fileInputRef.current)

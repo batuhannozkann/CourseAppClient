@@ -3,17 +3,27 @@ import  "./navbar.css"
 import { NavLink } from "react-router-dom";
 import {useIsAuthenticated} from 'react-auth-kit'
 import {useSignOut} from 'react-auth-kit';
-import {useAuthUser} from"react-auth-kit";
-import Cookies from 'js-cookie';
+import {useAuthUser} from 'react-auth-kit';
+import { identityServerApi } from "../../utilties/identityServerApi";
+import { setEncryptedCookie, getDecryptedCookie } from '../../utilties/cookieHelper';
+import Cookies from 'js-cookie'
+
 
 export const Navbar = ()=>{
     
     const isAuthenticated = useIsAuthenticated();
-    const authUser = useAuthUser();
+    const authUser:any = useAuthUser();
     const signOut = useSignOut();
-    if(isAuthenticated()){
-        console.log(authUser());
-    }
+    const [user,setUser]:any = useState();
+    
+    useEffect(()=>{
+        if(!Cookies.get("user")&&isAuthenticated()){
+            identityServerApi.getUserInfoFromService(authUser().email).then((x:any)=>{setEncryptedCookie("user",JSON.stringify(x.data.data));setUser(x.data.data)});
+        }
+        else{
+            setUser(JSON.parse(getDecryptedCookie("user")));
+        }
+    },[])
     return(
         <>
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-dark">
@@ -72,11 +82,11 @@ export const Navbar = ()=>{
                                 {isAuthenticated()?<>
                                         <div className="dropdown">
                                             <NavLink to="#" className="text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" alt="" width="32" height="32" className="rounded-circle me-2" />
-                                                <strong>{authUser()?.fullname}</strong>
+                                                <img src={user?.picture} alt="" width="32" height="32" className="rounded-circle me-2" />
+                                                <strong>{user?.firstName}</strong>
                                             </NavLink>
                                             <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                                                <li><a style={{cursor:'pointer'}} className="dropdown-item" onClick={()=>{signOut();Cookies.remove('userInfo');}}>Sign out</a></li>
+                                                <li><a style={{cursor:'pointer'}} className="dropdown-item" onClick={()=>{signOut();window.location.reload();Cookies.remove('userInfo');Cookies.remove('user')}}>Sign out</a></li>
                                                 <li> <NavLink className="dropdown-item" to="/User/">Account
                                             </NavLink></li>
                                             </ul>

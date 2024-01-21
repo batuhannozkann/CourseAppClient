@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { Api } from '../../utilties/OcelotApi';
-import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import useApi from '../../utilties/OcelotApi';
 import './css/courseview.css'
 
 const CourseViewTemplate = ({id}:any) => {
+  const {sendRequest} = useApi();
   const[course,setCourse] = useState<CourseDto>();
   useEffect(()=>{
-    Api.get('catalog','course',"",`GetById/?id=${id}`).then((x:any)=>{
-        setCourse(x.data.data)
-        console.log(x.data.data);
+    sendRequest('get','catalog','course',"",`GetById/?id=${id}`).then((x:any)=>{
+        setCourse(x.data)
     });
 },[])
 
