@@ -1,7 +1,10 @@
 // Layout component (Layout.js)
-import React from 'react';
+import React, { useEffect } from 'react';
 import Sidebar from '../sidebar/sidebar';
 import { Navbar } from '../navbar/navbar';
+import { identityServerApi } from '../../utilties/identityServerApi';
+import { setEncryptedCookie } from '../../utilties/cookieHelper';
+import Cookies from 'js-cookie'
 
 
 const Layout = ({ children }:any) => {
@@ -12,7 +15,7 @@ const Layout = ({ children }:any) => {
             <div className="col-md-2 px-0">
               <Sidebar/>
             </div>
-            <div className="col-md-10 user-body pt-3">
+            <div className="col-md-10 user-body bg-light p-0">
              {children}
             </div>
                 </div>

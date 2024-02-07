@@ -7,7 +7,7 @@ export const EditCourse = () =>{
     const {id} = useParams();
     return(
         <Layout>
-            <CourseDetail id={id}></CourseDetail>
+            <CourseDetail></CourseDetail>
         </Layout>
         )
 }

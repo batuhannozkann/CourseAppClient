@@ -1,6 +1,40 @@
-.headerSpace{
-    margin-top: 5%;
+.carousel-item {
+    height: 100vh;
+    min-height: 350px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  .carousel-caption {
+    bottom: 50%;
+    left: 35.3%;
+    color: black;
+    border: 1px solid white;
+    width: 25%;
+  }
+  
+  @media (max-width: 768px) {
+    /* Mobil cihazlar için stil ayarları */
+    .carousel-caption {
+      bottom: 55%;
+      left: 30%;
+      width: 50%;
+
+      /* Diğer mobil özel stillendirmeler... */
     }
-    .headersBetwwenSpace{
-    margin-top:1.5%;
+    .carousel-caption h2{
+        font-size:17px;
     }
+  }
+  
+  @media (min-width: 769px) and (max-width: 1024px) {
+    /* Tablet cihazlar için stil ayarları */
+    .carousel-caption {
+      bottom: 55%;
+      left: 35%;
+      width: 35%;
+      /* Diğer tablet özel stillendirmeler... */
+    }
+  }

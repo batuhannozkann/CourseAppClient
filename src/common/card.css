@@ -1,3 +1,36 @@
-.course-card a{
-    text-decoration:none;
-}
+@media screen and (min-width: 768px) {
+    .course-card {
+      position: relative;
+      /* Other stylings... */
+    }
+  
+    .course-card:hover .info-box {
+      display: block !important;
+    }
+
+    .info-box {
+      display: none !important;
+      position: absolute;
+      left: 0;
+      top:0;
+      z-index: 1000;
+      bottom: 100%; /* The box appearing at the top of the card */
+      width: 100%;
+      background-color: white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      box-sizing: border-box;
+    }
+  
+    /* Content styling goes here */
+    .info-box .title,
+    .info-box .description {
+      /* Content stylings... */
+    }
+  }
+  .course-card a {
+    text-decoration: none;
+  }
+  .info-box {
+   display: none !important;
+  }
+  

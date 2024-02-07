@@ -4,9 +4,10 @@ import CryptoJS from 'crypto-js';
 const secretKey = 'your_secret_key_here';
 
 // Veriyi şifreleyip cookie'ye ekleyen fonksiyon
-export const setEncryptedCookie = (key:string, value:any) => {
+export const setEncryptedCookie = (key:string, value:any,expires?:any) => {
   const encryptedValue = CryptoJS.AES.encrypt(JSON.stringify(value), secretKey).toString();
-  Cookies.set(key, encryptedValue);
+  expires?Cookies.set(key, encryptedValue,{expires:expires}):Cookies.set(key, encryptedValue);
+  
 };
 
 // Cookie'den veriyi çözen fonksiyon

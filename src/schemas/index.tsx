@@ -31,3 +31,15 @@ export const resetPasswordSchema = yup.object().shape({
       .required('Şifre tekrarı zorunludur.')
       .oneOf([yup.ref('password')], 'Şifreler uyuşmuyor.')  
 });
+export const orderSchema = yup.object().shape({
+    province:yup.string().required('Please enter province'),
+    district:yup.string().required('Please enter district'),
+    street:yup.string().required('Please enter street'),
+    line:yup.string().required('Please enter line'),
+    zipcode:yup.number().required('Please enter zipcode'),
+    cardholderName:yup.string().required('Please enter name'),
+    cardNumber:yup.string().matches(/^\d{17}$/,'Card number must be 17 characters').required('Please enter card number'),
+    expirationMonth:yup.string().min(2).required(),
+    expirationYear:yup.string().min(4).required(),
+    cvv:yup.string().matches(/^[0-9]{3}$/,'Cvv must be at least3 characters').required("Please enter credit card cvv")
+})

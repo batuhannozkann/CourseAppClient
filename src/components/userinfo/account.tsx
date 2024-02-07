@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import {Api} from './../../utilties/OcelotApi'
+import useApi, {Api} from './../../utilties/OcelotApi'
 import "./css/coursedetail.css";
 import { useFormik } from 'formik';
 import { identityServerApi } from "../../utilties/identityServerApi";
 
 const Account = () => {
+  const {sendRequest}  = useApi();
     const[user,setUser]:any = useState<any>();
     const handleFileChange = (event:any) => {
         const file = event.target.files[0];
@@ -55,8 +56,8 @@ const Account = () => {
              identityServerApi.updateUserInfoFromService(userInfoDto).then((x)=>console.log(x));
          }
          else{
-             Api.file("photostock","photo",{file:values.file}).then(((x:any)=>{
-                userInfoDto.picture=x.data.data;
+             sendRequest("file","photostock","photo",{file:values.file}).then(((x:any)=>{
+                userInfoDto.picture=x.data;
                  identityServerApi.updateUserInfoFromService(userInfoDto).then((x)=>console.log(x));
              }))
          }
@@ -124,7 +125,7 @@ const Account = () => {
                       className="form-control rounded"
                       id="inputCountry"
                       type="text"
-                      placeholder="Enter Duration"
+                      placeholder="Enter Country"
                       name="country"
                       value={accountFormik.values.country}
                       onChange={accountFormik.handleChange}

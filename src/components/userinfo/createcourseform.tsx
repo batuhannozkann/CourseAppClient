@@ -44,7 +44,7 @@ export const CreateCourseForm = ()=>{
         Feature: {Duration:createCourseFormik.values.duration}
       }
       sendRequest('file','photostock','photo',{file:createCourseFormik.values.file}).then((x:any)=>{
-        courseCreateDto.Picture=(x.data.data);
+        courseCreateDto.Picture=(x.data);
         sendRequest('post','catalog','course',courseCreateDto
           ).then((x)=>{
           createCourseFormik.resetForm();

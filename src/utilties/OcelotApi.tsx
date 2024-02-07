@@ -1,7 +1,9 @@
 import {useState } from 'react';
 import axios from 'axios';
-import {useAuthHeader} from 'react-auth-kit';
-import { getDecryptedCookie } from './cookieHelper';
+import {useAuthHeader, useIsAuthenticated} from 'react-auth-kit';
+import { getDecryptedCookie, setEncryptedCookie } from './cookieHelper';
+import Cookies from 'js-cookie'
+import { identityServerApi } from './identityServerApi';
 
 const setApiUrl = (catalog:string, controller:string, action?:string) => {
   const url = `http://localhost:5000/services/${catalog}/${controller}`;
@@ -29,11 +31,8 @@ export const Api:any = {
         'content-type': 'application/json'
       }
     }).catch(error => {
-      if(error.response.status==401)
-      {
-        
-      }
-      console.log(error.response.status);
+     console.log(error);
+      
     });
   },
   file: async (catalog:string, controller:string, data?:any, action?:string,header?:string) => {
@@ -49,7 +48,7 @@ export const Api:any = {
     });
   },
   post: async (catalog:string, controller:string, data?:any, action?:string,header?:string) => {
-    axiosWithAuth(header)({
+    return axiosWithAuth(header)({
       method: 'post',
       url: setApiUrl(catalog, controller, action),
       data: data,
@@ -89,21 +88,27 @@ export const Api:any = {
 const useApi = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const isAuthenticated = useIsAuthenticated();
   const authHeader = useAuthHeader();
-  const clientToken = getDecryptedCookie('_cl_tk')
-
+  var expiresDate = new Date();
   const sendRequest = async (method:any, catalog:string, controller:string, data?:any, action?:string) => {
     setIsLoading(true);
     setError(null);
-
     try {
       var response;
+      const tokenData =await identityServerApi.getClientToken()
       if(authHeader())
       {
          response = await Api[method](catalog, controller, data, action,authHeader());
       }
-      else{
-         response = await Api[method](catalog, controller, data, action,`Bearer ${clientToken}`);
+      else if(!Cookies.get('_cl_tk')){
+         response = await Api[method](catalog, controller, data, action,`Bearer ${tokenData.data.access_token}`);
+         expiresDate.setTime(expiresDate.getTime() + (1 * 60*60*1000 ));
+         setEncryptedCookie('_cl_tk',tokenData.data.access_token,expiresDate)
+      }
+      else if(Cookies.get('_cl_tk')){
+        const token =getDecryptedCookie('_cl_tk');
+        response = await Api[method](catalog, controller, data, action,`Bearer ${token}`);
       }  
       return response.data;
     } catch (error:any) {

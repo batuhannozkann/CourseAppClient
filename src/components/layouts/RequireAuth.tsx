@@ -6,7 +6,7 @@ import { useIsAuthenticated } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
 
 
-const LoginLayout = ({ children }:any) => {
+const RequireAuth = ({ children }:any) => {
 const isAuthenticated = useIsAuthenticated();
 const navigate = useNavigate();
 useEffect(()=>{
@@ -24,4 +24,4 @@ useEffect(()=>{
     )
 };
 
-export default LoginLayout;
+export default RequireAuth;

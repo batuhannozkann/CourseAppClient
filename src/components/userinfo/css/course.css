@@ -1,4 +1,16 @@
-.course-row .card{
-    min-height: 30vh;
+.p-dropdown-items{
+    margin-bottom: 0 !important;
+    padding-left: 0 !important;
 }
-
+.p-dataview-content{
+    background-color:rgba(var(--bs-light-rgb),var(--bs-bg-opacity))!important
+}
+.p-dataview.p-dataview-list .p-dataview-content > .p-grid > div{
+    border:unset !important;
+}
+.p-paginator{
+    background-color: unset !important;
+}
+.p-dataview-header{
+    border:unset !important;
+}

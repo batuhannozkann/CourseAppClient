@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useFormAction, useNavigate } from 'react-router-dom';
 import "./sidebar.css";
 import { FaUserAlt } from "react-icons/fa";
 import { BiSolidPurchaseTag } from "react-icons/bi";
@@ -12,6 +12,8 @@ import {useIsAuthenticated} from 'react-auth-kit'
 import { setEncryptedCookie, getDecryptedCookie } from '../../utilties/cookieHelper';
 import Select from 'react-select'
 import useApi from '../../utilties/OcelotApi';
+import { useFormik } from 'formik';
+import { FilteredCourses } from '../filteredcourses/filteredcourses';
 
 
 const MobileNavbar = () => {
@@ -35,10 +37,32 @@ const MobileNavbar = () => {
   );
 };
 const AuthenticatedSidebar = (props: any) => {
+  const navigate = useNavigate();
+  const filterFormik = useFormik({
+    initialValues:{
+      minPrice:0,
+      maxPrice:0
+    },
+    onSubmit:(values)=>{
+      const filterParameters:FilterParameters={
+        categoryIds:selectedOptions.map((x:any)=>{return x.value}),
+        minPrice:values.minPrice,
+        maxPrice:values.maxPrice
+      }
+      sendRequest('post','catalog','course',filterParameters,'GetFilteredCourses').then((x:any)=>{navigate('/Course/FilteredCourses', { state: { filteredData: x.data } });
+    });
+    }
+  })
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  // Seçeneklerin değiştiğinde çağrılacak işlev
+  const handleSelectChange = (selectedOptions:any) => {
+    setSelectedOptions(selectedOptions);
+    console.log(selectedOptions);
+  };
   const { sendRequest } = useApi();
   const [categories,setCategories] = useState<Category[]>();
   useEffect(()=>{
-    sendRequest('get','catalog','category').then((x:any)=>{setCategories(x.data)});
+    sendRequest('get','catalog','category').then((x?:any)=>{console.log(x);setCategories(x?.data)});
   },[]);
   const categoryOptions = categories?.map((x: Category) => ({
    value:x.id,
@@ -120,7 +144,7 @@ const AuthenticatedSidebar = (props: any) => {
         </li>
       
       <hr className="bg-white p-1" />
-      <h5>Filter:</h5>
+      <h2>Filter:</h2>
       {/* Min ve Max Price Inputları */}
       {/* Kategori Seçimi */}
       <div className="mb-3">
@@ -136,10 +160,12 @@ const AuthenticatedSidebar = (props: any) => {
           },
         })}
         isMulti
-        name="colors"
+        name="categoryIds"
         options={categoryOptions}
         className="basic-multi-select text-dark border-1"
         classNamePrefix="select"
+        value={selectedOptions} // Seçili değerlerin durumunu ata
+        onChange={handleSelectChange} // Değişiklik olduğunda çalışacak işlevi belirt
   />
       </div>
       {/* Min ve Max Price Inputları */}
@@ -148,15 +174,16 @@ const AuthenticatedSidebar = (props: any) => {
         <label htmlFor="minPrice" className="form-label text-white">
           Min Price:
         </label>
-        <input type="number" className="form-control" id="minPrice" />
+        <input onChange={filterFormik.handleChange} type="number" name="minPrice" className="form-control" id="minPrice" />
       </div>
       <div className="mb-3 col-6">
         <label htmlFor="maxPrice" className="form-label text-white">
           Max Price:
         </label>
-        <input type="number" className="form-control" id="maxPrice" />
+        <input onChange={filterFormik.handleChange} type="number" name="maxPrice" className="form-control" id="maxPrice" />
       </div>
       </div>
+      <a className="btn btn-primary" onClick={()=>{filterFormik.submitForm();}}>Filter</a>
       </ul>
     </div>
     
@@ -166,7 +193,7 @@ const NotAuthenticatedSidebar = () => {
   const { sendRequest } = useApi();
   const [categories,setCategories] = useState<Category[]>();
   useEffect(()=>{
-    sendRequest('get','catalog','category').then((x:any)=>{setCategories(x.data)});
+    sendRequest('get','catalog','category').then((x?:any)=>{console.log(x);setCategories(x?.data)});
   },[]);
   const categoryOptions = categories?.map((x: Category) => ({
    value:x.id,
@@ -202,7 +229,6 @@ const NotAuthenticatedSidebar = () => {
         </ul>
       </div>
       <hr />
-      <h5>Filter:</h5>
       <ul className="nav nav-pills flex-column mb-auto">
         {/* Kategori Seçimi */}
       <div className="mb-3">
@@ -239,10 +265,8 @@ const NotAuthenticatedSidebar = () => {
         <input type="number" className="form-control" id="maxPrice" />
       </div>
       </div>
-
       </ul>
     </div>
-    
   );
 };
 

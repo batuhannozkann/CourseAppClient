@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import useApi, {Api} from './../../utilties/OcelotApi'
 import "./css/coursedetail.css";
 import { useFormik } from 'formik';
+import { useParams } from "react-router-dom";
+import { AlertifyLibrary, NotificationPosition } from "../../utilties/Alertify";
 
-const CourseDetail = ({id}:any) => {
+const CourseDetail = () => {
+    const {id} = useParams();
     const[course,setCourse] = useState<CourseDto>();
     const [categories,setCategories] = useState<Category[]>([]);
     const [counter,setCounter] = useState(0);
+    const [refreshState,setRefreshState] = useState(0);
     const handleFileChange = (event:any) => {
         const file = event.target.files[0];
         courseDetailFormik.setFieldValue('file', file);
@@ -20,10 +24,11 @@ const CourseDetail = ({id}:any) => {
             courseDetailFormik.setFieldValue('name', x.data.name);
             courseDetailFormik.setFieldValue('price', x.data.price);
             courseDetailFormik.setFieldValue('description', x.data.description);
-            courseDetailFormik.setFieldValue('duration', x.data.duration);
+            courseDetailFormik.setFieldValue('duration', x.data.feature.duration);
             courseDetailFormik.setFieldValue('categoryId', x.data.category.id);
             courseDetailFormik.setFieldValue('id', x.data.id);
             courseDetailFormik.setFieldValue('pictureUrl', x.data.picture);
+            courseDetailFormik.setFieldValue('userId', x.data.userId);
         });
         if(counter==0)
     {
@@ -34,7 +39,7 @@ const CourseDetail = ({id}:any) => {
       });
       setCounter(counter+1);
     }
-    },[])
+    },[refreshState])
   const courseDetailFormik = useFormik({
     initialValues: {
       pictureUrl:"",
@@ -43,6 +48,7 @@ const CourseDetail = ({id}:any) => {
       name: "",
       categoryId:"",
       description:"",
+      userId:"",
       duration:0,
       price:0,
     },
@@ -55,16 +61,17 @@ const CourseDetail = ({id}:any) => {
             picture:values.pictureUrl,
             description: values.description,
             categoryid: values.categoryId,
-            feature: {Duration:values.duration}
+            feature: {Duration:values.duration},
+            userId:values.userId
         } 
         if(values.file=="")
         {
-            sendRequest('put','catalog','course',courseUpdateDto).then((x)=>{window.location.reload()});
+            sendRequest('put','catalog','course',courseUpdateDto).then((x)=>{setRefreshState(refreshState+1);AlertifyLibrary.AlertifySuccess('Course has been successfully updated',NotificationPosition.topCenter)});
         }
         else{
           sendRequest('file',"photostock","photo",{file:values.file}).then(((x:any)=>{
                 courseUpdateDto.picture=x.data.data;
-                Api.put('catalog','course',courseUpdateDto).then((x:any)=>{window.location.reload()});
+                Api.put('catalog','course',courseUpdateDto).then((x:any)=>{setRefreshState(refreshState+1);AlertifyLibrary.AlertifySuccess('Course has been successfully updated',NotificationPosition.topCenter)});
             }))
         }
         

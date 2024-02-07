@@ -6,4 +6,5 @@ interface CourseUpdateDto{
     description:string;
     categoryid:string;
     feature:FeatureDto;
+    userId:string;
 }

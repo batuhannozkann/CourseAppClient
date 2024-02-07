@@ -12,7 +12,7 @@ import { identityServerApi } from "../../utilties/identityServerApi.tsx";
 
 import "./login.css";
 import { loginSchema } from "../../schemas/index.tsx";
-import LoginLayout from "../layouts/loginLayout.tsx";
+import LoginLayout from "../layouts/RequireAuth.tsx";
 
 export const Login = ()=>{
     
@@ -35,7 +35,7 @@ export const Login = ()=>{
                 expiresIn:result.data.expires_in,
                 tokenType: result.data.token_type,
                 refreshToken:result.data.refresh_token,
-                refreshTokenExpireIn:36000,
+                refreshTokenExpireIn:(60*60*24),
                 authState: {email:loginFormik.values.email}})
                 ){navigate("/");}else{
                     

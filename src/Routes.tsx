@@ -12,6 +12,10 @@ import { PurchasedCourses } from './components/userinfo/purchasedcourses.tsx';
 import CourseDetail from './components/userinfo/coursedetail.tsx';
 import { EditCourse } from './components/userinfo/editcourse.tsx';
 import { CourseView } from './components/userinfo/courseview.tsx';
+import { ShoppingCartMobile } from './components/basket/shoppingcartmobile.tsx';
+import { Order } from './components/order/order.tsx';
+import { OrderDetail } from './components/order/orderdetail.tsx';
+import { FilteredCourses } from './components/filteredcourses/filteredcourses.tsx';
 
 
 
@@ -30,9 +34,7 @@ export const RouteList = ()=>{
         </RequireAuth>
       }/>path="User/SaleCourses"
       <Route path="User/SaleCourses" element={
-
           <SaleCourses/>
-
       } />
       <Route path="User/PurchasedCourses" element={
 
@@ -50,10 +52,20 @@ export const RouteList = ()=>{
         </RequireAuth>
       } />
       <Route path="Course/View/:id" element={
-        <RequireAuth loginPath="/login">
           <CourseView/>
-        </RequireAuth>
       } />
+      <Route path="User/Basket" element={
+          <ShoppingCartMobile></ShoppingCartMobile>
+      } />
+      <Route path="User/Order" element={
+          <Order></Order>
+      } />
+      <Route path="User/Order/:id" element={
+          <OrderDetail></OrderDetail>
+      } />
+      <Route path="Course/FilteredCourses" element={<FilteredCourses/>}>
+        </Route>
         </Routes>
+        
     )
 }

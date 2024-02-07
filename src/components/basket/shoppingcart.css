@@ -1,0 +1,23 @@
+@media (min-width: 1025px) {
+    .h-custom {
+    height: 20vh !important;
+    }
+    }
+.shoppingcart-section{
+    position:absolute;
+    z-index:100;
+    top:0;
+    right:100%;
+    width:60%;
+}
+@media (max-width:1150px)
+{
+    .shoppingcart-section{
+        position:relative;
+        z-index:100;
+        top:0;
+        right:0;
+        width:100%;
+    }
+    
+}

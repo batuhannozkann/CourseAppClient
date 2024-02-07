@@ -1,25 +1,28 @@
 import React from "react";
 import "./card.css";
 import { FaStar } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+import {sliceText} from '../utilties/commonfunctions'
+import CardHover from "./cardhover";
 
-export const Card = () =>{
+export const Card = ({course}:any) =>{
     return(
        
             <div className="col-xl-3 col-lg-3 col-md-6 col-12">
             {/* Card */}
             <div className="card card-hover course-card mb-2">
-              <a href="blog-single.html">
-                <img style={{height:'25vh'}} src="https://firebasestorage.googleapis.com/v0/b/courseapplication-f3e34.appspot.com/o/data%2Frandom%2Fasp-1-550x422-1.jpg?alt=media&token=09bb93de-393d-4877-be29-950b147ed4b3" className="card-img-top rounded-top-md" alt="" />
-              </a>
+              <NavLink to={`Course/View/${course.id}`}>
+                <img style={{height:'25vh'}} src={course?.picture} className="card-img-top rounded-top-md" alt="" />
+              </NavLink>
               {/* Card Body */}
               <div className="card-body">
-                <a href="#" className="badge bg-primary mb-2">Courses</a>
+                <NavLink to='#' className="badge bg-dark mb-2">{course?.category.name}</NavLink>
                 <h5 className="card-title">
-                  <a href="blog-single.html" className="text-inherit">
-                    How to become a modern Stack Developer in 2020
-                  </a>
+                  <NavLink to={`Course/View/${course.id}`} className="text-inherit">
+                   {course?.name}
+                  </NavLink>
                   <br/>
-                  {Array(4).fill(0).map((_, index) => <i key={index} className="fa fa-star"><FaStar /></i>)}
+                  {Array(4).fill(0).map((_, index) => <i key={index} className=""><FaStar /></i>)}
                 </h5>
                 {/* Media Content */}
                 <div className="row align-items-center g-0 mt-4">
@@ -28,10 +31,14 @@ export const Card = () =>{
                     <p className="fs-6 mb-0">September 05, 2020</p>
                   </div>
                   <div className="col-auto">
-                    <p className="fs-6 mb-0">20 Min Read</p>
+                    <p className="fs-6 mb-0 fw-bold">${course.price}</p>
                   </div>
                 </div>
               </div>
+              <div className="info-box d-flex flex-column align-items-start">
+                <CardHover course={course}></CardHover>
+                </div>
+
             </div>
           </div>
        )

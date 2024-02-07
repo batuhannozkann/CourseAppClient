@@ -8,5 +8,6 @@
     userId: string;
     category: Category;
     feature: FeatureDto;
+    userOwned?:boolean;
   }
   

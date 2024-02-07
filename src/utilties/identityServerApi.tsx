@@ -124,22 +124,28 @@ export const identityServerApi = {
         })
 
        },
-       getClientToken:async()=>{
-        return await axios({
-          method: 'post',
-          url: `${identityServerUrl}/connect/token`,
-          data:{
-          client_id:"WebClient",
-          client_secret:'secret',
-          grant_type:"client_credentials"
-        },
-          headers: {
-            'content-type': 'application/x-www-form-urlencoded'
-          }
-        })
-      .catch(error=>{
-          AlertifyLibrary.AlertifyAlert('Login error',error.response.data.error);
-          console.log(error)});
-       }
-
+       getClientToken: async () => {
+        try {
+          const response = await axios({
+            method: 'post',
+            url: `${identityServerUrl}/connect/token`,
+            data: {
+              client_id: "WebClient",
+              client_secret: "secret",
+              grant_type: "client_credentials"
+            },
+            headers: {
+              'content-type': 'application/x-www-form-urlencoded'
+            }
+          });
+      
+          return response;
+        } catch (error:any) {
+          AlertifyLibrary.AlertifyAlert('Login error', error.response.data.error);
+          console.log(error);
+          throw error;
+        }
+      }
+      
+       
        }

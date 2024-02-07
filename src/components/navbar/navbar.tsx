@@ -7,14 +7,18 @@ import {useAuthUser} from 'react-auth-kit';
 import { identityServerApi } from "../../utilties/identityServerApi";
 import { setEncryptedCookie, getDecryptedCookie } from '../../utilties/cookieHelper';
 import Cookies from 'js-cookie'
+import { TiShoppingCart } from "react-icons/ti";
+import ShoppingCart from "../basket/shoppingcart";
 
 
 export const Navbar = ()=>{
     
     const isAuthenticated = useIsAuthenticated();
     const authUser:any = useAuthUser();
+    const [triggerCart,setTriggerCart] = useState(0);
     const signOut = useSignOut();
     const [user,setUser]:any = useState();
+    const isMobile = window.innerWidth <= 1150; 
     
     useEffect(()=>{
         if(!Cookies.get("user")&&isAuthenticated()){
@@ -73,12 +77,12 @@ export const Navbar = ()=>{
                         isPending ? "" : isActive ? "nav-link text-white mx-lg-3 border-bottom border-dark " : "nav-link text-white mx-lg-3"
                         }
                         >
-                        İletişim
+                        Contact
                     </NavLink>
                 </li>
             </ul>
             <div className="ms-lg-2 my-sm-2 my-lg-0 d-inline-block">
-                <div className="">
+                <div className="d-flex">
                                 {isAuthenticated()?<>
                                         <div className="dropdown">
                                             <NavLink to="#" className="text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -91,6 +95,27 @@ export const Navbar = ()=>{
                                             </NavLink></li>
                                             </ul>
                                         </div>
+                                        {isMobile?<div className="ms-3">
+                                        <NavLink onClick={()=>{setTriggerCart(triggerCart+1)}} to={isMobile?"/User/Basket":"#"} className="text-white text-decoration-none">
+                                        <TiShoppingCart className="text-white" />
+                                        </NavLink>
+                                        </div>
+                                        :
+                                        <div className="ms-3 dropdown">
+                                        <NavLink onClick={()=>{setTriggerCart(triggerCart+1)}} to="#" className="text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <TiShoppingCart className="text-white" />
+                                        </NavLink>
+                                        <ul className="dropdown-menu bg-dark">
+                                        <li>
+                                        <div className="position-relative container-fluid h-100" style={{width:'100vw'}}>
+                                        <ShoppingCart trigger={triggerCart}></ShoppingCart>
+                                        </div>
+                                        
+                                        </li>    
+                                        </ul></div>}
+                                        
+                                        
+                                        
 
                                     </>
                                     :<><NavLink
