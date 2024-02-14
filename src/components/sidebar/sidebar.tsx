@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { NavLink, useFormAction, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import "./sidebar.css";
 import { FaUserAlt } from "react-icons/fa";
 import { BiSolidPurchaseTag } from "react-icons/bi";
@@ -13,7 +13,7 @@ import { setEncryptedCookie, getDecryptedCookie } from '../../utilties/cookieHel
 import Select from 'react-select'
 import useApi from '../../utilties/OcelotApi';
 import { useFormik } from 'formik';
-import { FilteredCourses } from '../filteredcourses/filteredcourses';
+
 
 
 const MobileNavbar = () => {
@@ -64,7 +64,7 @@ const AuthenticatedSidebar = (props: any) => {
   useEffect(()=>{
     sendRequest('get','catalog','category').then((x?:any)=>{console.log(x);setCategories(x?.data)});
   },[]);
-  const categoryOptions = categories?.map((x: Category) => ({
+  const categoryOptions:any = categories?.map((x: Category) => ({
    value:x.id,
    label:x.name
   })) || [];

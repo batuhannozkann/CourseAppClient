@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import useApi from '../../utilties/OcelotApi';
 import { BasketDto } from '../../dtos/basketdto';
 import { BasketItemDto } from '../../dtos/basketitem';
 import { AlertifyLibrary, NotificationPosition } from '../../utilties/Alertify';
 import RequireAuth from '../layouts/RequireAuth';
 import Layout from '../layouts/layout';
-import { getDecryptedCookie } from '../../utilties/cookieHelper';
-import { Formik, Field, Form, useFormik } from 'formik';
+import {useFormik } from 'formik';
 import { orderSchema } from '../../schemas';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,7 +15,6 @@ export const Order = () => {
   const {sendRequest} = useApi();
   const [deleteTrigger,setDeleteTrigger] = useState(0);
   const [basket,setBasket] = useState<BasketDto>();
-  const [basketItems,setBasketItems] = useState()
   useEffect(()=>{
     sendRequest('get','basket','basket').then((x:any)=>{setBasket(x.data);console.log(x.data)});
     console.log('çalıştı');
@@ -24,7 +22,7 @@ export const Order = () => {
   useEffect(() => {
       orderFormik.validateForm();
   }, [])
-  const [user,setUser] = useState(JSON.parse(getDecryptedCookie("user")));
+  // const [user,setUser] = useState(JSON.parse(getDecryptedCookie("user")));
   const handleOnClick=()=>{
     if(orderFormik.errors)
     {
@@ -42,7 +40,7 @@ export const Order = () => {
           ];
         const errorsObject = Object.values(orderFormik.errors);
         var schemaErrors = ""
-        errorFields.forEach((field, index) => {
+        errorFields.forEach((_field,index) => {
             const errorMessage = errorsObject[index];
             if (errorMessage) {
               schemaErrors += errorMessage + '<br>';

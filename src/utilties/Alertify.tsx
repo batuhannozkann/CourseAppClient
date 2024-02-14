@@ -1,4 +1,5 @@
 import 'alertifyjs/build/css/alertify.css';
+declare var alertify:any;
 export enum NotificationPosition  {
     topCenter='top-center',
     topRight='top-right',
@@ -8,7 +9,7 @@ export enum NotificationPosition  {
     bottomCenter='bottom-center'
 }
 export const AlertifyLibrary ={
-
+    
      AlertifyAlert:(title:string,message:string)=>{
         alertify.alert(title, message);
         },

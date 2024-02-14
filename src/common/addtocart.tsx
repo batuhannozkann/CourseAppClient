@@ -25,7 +25,7 @@ const AddToCart = ({course,size}:any) => {
             }
             console.log(course);
             console.log("Sending basketDto:", basketDto);
-            sendRequest('post','basket','basket',basketDto).then((x)=>{AlertifyLibrary.AlertifySuccess(`${course.name} added on your cart`,NotificationPosition.topCenter)}).catch(e=>console.log(e));
+            sendRequest('post','basket','basket',basketDto).then(()=>{AlertifyLibrary.AlertifySuccess(`${course.name} added on your cart`,NotificationPosition.topCenter)}).catch(e=>console.log(e));
         }
         else{
             navigate('/login');

@@ -10,7 +10,7 @@ export const CreateCourseForm = ()=>{
   const fileInputRef:any = useRef<HTMLInputElement | null>(null);
   const [categories,setCategories] = useState<Category[]>([]);
   const [counter,setCounter] = useState(0);
-  const [user,setUser] = useState(JSON.parse(getDecryptedCookie('user')));
+  const user= JSON.parse(getDecryptedCookie('user'));
   useEffect(()=>{
     if(counter==0)
     {
@@ -49,7 +49,7 @@ export const CreateCourseForm = ()=>{
       sendRequest('file','photostock','photo',{file:createCourseFormik.values.file}).then((x:any)=>{
         courseCreateDto.Picture=(x.data);
         sendRequest('post','catalog','course',courseCreateDto
-          ).then((x)=>{
+          ).then(()=>{
           createCourseFormik.resetForm();
           if(fileInputRef.current)
           {

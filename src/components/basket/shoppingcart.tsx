@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import './shoppingcart.css'
 import useApi from '../../utilties/OcelotApi';
 import { BasketDto } from '../../dtos/basketdto';
@@ -11,7 +11,7 @@ const ShoppingCart = (props:any) => {
   const {sendRequest} = useApi();
   const [deleteTrigger,setDeleteTrigger] = useState(0);
   const [basket,setBasket] = useState<BasketDto>();
-  const [user,setUser] = useState();
+  const [user,setUser]:any = useState();
   useEffect(()=>{
     setUser(JSON.parse(getDecryptedCookie("user")));
   },[])

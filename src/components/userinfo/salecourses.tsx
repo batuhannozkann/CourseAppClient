@@ -3,7 +3,6 @@ import Layout from "../layouts/layout";
 import { Course } from "./course";
 import { FaStar } from "react-icons/fa";
 import useApi from "../../utilties/OcelotApi";
-import Cookies from 'js-cookie'
 import RequireAuth from "../layouts/RequireAuth";
 import { getDecryptedCookie } from "../../utilties/cookieHelper";
 import { useIsAuthenticated } from "react-auth-kit";
@@ -13,7 +12,7 @@ import { Loading } from "../../utilties/loading";
 export const SaleCourses = ()=>{
   const [courses,setCourses] = useState<CourseDto[]>([]); 
   const [counter,setCounter] = useState(0);
-  const [user,setUser] = useState(getDecryptedCookie('user'));
+  const user = getDecryptedCookie('user');
   const isAuthenticated = useIsAuthenticated();
   if(isAuthenticated())
   {

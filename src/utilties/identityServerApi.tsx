@@ -100,9 +100,10 @@ export const identityServerApi = {
          return userInfo;
        }
        ,getUserInfoFromService:async(email?:string)=>{
+        const emailFromCookie:any = Cookies.get('_auth_state');
         return await axios({
           method: 'get',
-          url: `${identityServerUrl}/api/User/GetUser?email=${email?email:JSON.parse(Cookies.get('_auth_state')).email}`,
+          url: `${identityServerUrl}/api/User/GetUser?email=${email?email:JSON.parse(emailFromCookie).email}`,
           headers: {
             'content-type': 'application/x-www-form-urlencoded',
           }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import useApi, {Api} from './../../utilties/OcelotApi'
+import useApi from './../../utilties/OcelotApi'
 import "./css/coursedetail.css";
 import { useFormik } from 'formik';
 import { identityServerApi } from "../../utilties/identityServerApi";

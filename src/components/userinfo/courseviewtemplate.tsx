@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import useApi from '../../utilties/OcelotApi';
 import './css/courseview.css'
-import { TiShoppingCart } from 'react-icons/ti';
 import AddToCart from '../../common/addtocart';
 import { Loading } from '../../utilties/loading';
 
 const CourseViewTemplate = ({id}:any) => {
   const {sendRequest} = useApi();
-  const[course,setCourse] = useState<CourseDto>();
+  const[course,setCourse]:any = useState<CourseDto>();
   const [windowWidth,setWindowWidth] = useState(window.innerWidth);
   const isMobile = windowWidth <= 768; 
   window.addEventListener('resize',(x:any)=>{

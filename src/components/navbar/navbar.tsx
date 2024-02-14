@@ -1,4 +1,4 @@
-import React ,{useEffect,useState} from "react";
+import {useEffect,useState} from "react";
 import  "./navbar.css"
 import { NavLink } from "react-router-dom";
 import {useIsAuthenticated} from 'react-auth-kit'

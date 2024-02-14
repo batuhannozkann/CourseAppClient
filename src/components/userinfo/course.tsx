@@ -1,4 +1,4 @@
-import React, { useState,useRef, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 import { classNames } from 'primereact/utils';
 import { NavLink } from 'react-router-dom';
@@ -10,12 +10,12 @@ import { InputText } from 'primereact/inputtext';
 import { Loading } from '../../utilties/loading';
 
 export const Course = (props: any) => {
-    const [layout, setLayout] = useState('grid');
+    const [layout, setLayout]:any = useState<'list' | 'grid' | (string & Record<string, unknown>)>('grid');
     const [sortKey, setSortKey] = useState('');
-    const [sortOrder, setSortOrder] = useState(0);
-    const [sortField, setSortField] = useState('');
-    const [courses,setCourses] = useState(props.cardData);
-    const [windowWidth,setWindowWidth] = useState(window.innerWidth);
+    const [sortOrder, setSortOrder] = useState< 1 | 0 | -1 | undefined | null>();
+    const [sortField, setSortField] = useState<string | undefined>();
+    const [courses,setCourses]:any = useState(props.courses);
+    const windowWidth:number = window.innerWidth;
   const isMobile = windowWidth <= 990; 
   // window.addEventListener('resize',(x:any)=>{
   //   setWindowWidth(x.currentTarget.innerWidth);
@@ -121,11 +121,11 @@ export const Course = (props: any) => {
     else if (layout === 'grid') return gridItem(course,index);
 };
 
-const listTemplate = (courses:any, layout:any) => {
+const listTemplate:any = (courses:any, layout:any) => {
   
     return <div className="grid grid-nogutter row">{courses.map((course:any, index:number) => itemTemplate(course, layout, index))}</div>;
 };
-    if(!props.cardData)
+    if(!courses)
     {
       return(
         <Loading></Loading>
@@ -133,7 +133,7 @@ const listTemplate = (courses:any, layout:any) => {
     }
     return (
         <div className="container">
-                <DataView value={courses} listTemplate={listTemplate} layout={layout} paginator rows={6} sortField={sortField} sortOrder={sortOrder} header={header()} />
+                <DataView value={courses?courses:undefined} listTemplate={listTemplate} layout={layout} paginator rows={6} sortField={sortField} sortOrder={sortOrder} header={header()} />
         </div>
     );
 }

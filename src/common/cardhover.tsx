@@ -1,5 +1,4 @@
 import { sliceText } from "../utilties/commonfunctions";
-import { TiShoppingCart } from "react-icons/ti";
 import AddToCart from "./addtocart";
 import { NavLink } from "react-router-dom";
 

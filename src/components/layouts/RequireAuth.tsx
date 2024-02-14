@@ -1,7 +1,5 @@
 // Layout component (Layout.js)
-import React, { useEffect } from 'react';
-import Sidebar from '../sidebar/sidebar';
-import { Navbar } from '../navbar/navbar';
+import  { useEffect } from 'react';
 import { useIsAuthenticated } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
 

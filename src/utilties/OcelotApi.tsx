@@ -1,6 +1,6 @@
 import {useState } from 'react';
 import axios from 'axios';
-import {useAuthHeader, useIsAuthenticated} from 'react-auth-kit';
+import {useAuthHeader,} from 'react-auth-kit';
 import { getDecryptedCookie, setEncryptedCookie } from './cookieHelper';
 import Cookies from 'js-cookie'
 import { identityServerApi } from './identityServerApi';
@@ -88,7 +88,6 @@ export const Api:any = {
 const useApi = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const isAuthenticated = useIsAuthenticated();
   const authHeader = useAuthHeader();
   var expiresDate = new Date();
   const sendRequest = async (method:any, catalog:string, controller:string, data?:any, action?:string) => {

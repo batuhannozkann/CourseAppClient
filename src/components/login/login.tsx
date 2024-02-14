@@ -6,13 +6,9 @@ import { useFormik } from "formik";
 import {useSignIn} from 'react-auth-kit';
 import 'alertifyjs/build/css/alertify.css';
 import { identityServerApi } from "../../utilties/identityServerApi.tsx";
-
-
-
-
 import "./login.css";
 import { loginSchema } from "../../schemas/index.tsx";
-import LoginLayout from "../layouts/RequireAuth.tsx";
+
 
 export const Login = ()=>{
     
@@ -25,12 +21,10 @@ export const Login = ()=>{
         },
         validationSchema:loginSchema,
         onSubmit: async ()=>{
-            
             const result:any =await identityServerApi.login(loginFormik.values.email,loginFormik.values.password);
             console.log(result);
             console.log(result);
-            var user:any;
-            await identityServerApi.getUserInfoByToken(result.data.access_token).then((x:any)=>{user=x.data});
+            await identityServerApi.getUserInfoByToken(result.data.access_token).then((x:any)=>{console.log(x)});
              if(signIn({
                 token: result.data.access_token,
                 expiresIn:result.data.expires_in,

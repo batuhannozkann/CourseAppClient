@@ -66,12 +66,12 @@ const CourseDetail = () => {
         } 
         if(values.file=="")
         {
-            sendRequest('put','catalog','course',courseUpdateDto).then((x)=>{setRefreshState(refreshState+1);AlertifyLibrary.AlertifySuccess('Course has been successfully updated',NotificationPosition.topCenter)});
+            sendRequest('put','catalog','course',courseUpdateDto).then(()=>{setRefreshState(refreshState+1);AlertifyLibrary.AlertifySuccess('Course has been successfully updated',NotificationPosition.topCenter)});
         }
         else{
           sendRequest('file',"photostock","photo",{file:values.file}).then(((x:any)=>{
                 courseUpdateDto.picture=x.data.data;
-                Api.put('catalog','course',courseUpdateDto).then((x:any)=>{setRefreshState(refreshState+1);AlertifyLibrary.AlertifySuccess('Course has been successfully updated',NotificationPosition.topCenter)});
+                Api.put('catalog','course',courseUpdateDto).then(()=>{setRefreshState(refreshState+1);AlertifyLibrary.AlertifySuccess('Course has been successfully updated',NotificationPosition.topCenter)});
             }))
         }
         

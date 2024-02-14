@@ -2,25 +2,21 @@ import { NavLink, useLocation, useParams } from "react-router-dom";
 import Layout from "../layouts/layout";
 import useApi from "../../utilties/OcelotApi";
 import { useEffect, useState } from "react";
-import { getDecryptedCookie } from "../../utilties/cookieHelper";
-import { useNavigate } from 'react-router-dom';
-import { BasketDto } from "../../dtos/basketdto";
-import { AlertifyLibrary, NotificationPosition } from "../../utilties/Alertify";
+
 import './orderdetail.css'
 
-export const OrderDetail = (props:any) => {
+export const OrderDetail = () => {
     const {id} = useParams()
     const location = useLocation();
     const {sendRequest} = useApi();
-    const [deleteTrigger,setDeleteTrigger] = useState(0);
-    const [order,setOrder] = useState<OrderDto>();
-    const [user,setUser] = useState();
+    const [order,setOrder]:any = useState<OrderDto>();
+    // const [user,setUser] = useState();
     const [courses,setCourses] = useState<any[]>([]);
     const [trigger,setTrigger] = useState(0);
     const orderCompleted = location.state?.orderCompleted || false;
-    useEffect(()=>{
-      setUser(JSON.parse(getDecryptedCookie("user")));
-    },[])
+    // useEffect(()=>{
+    //   setUser(JSON.parse(getDecryptedCookie("user")));
+    // },[])
     useEffect(() =>{
       console.log(order);
         if(trigger==0)sendRequest('get','order','order',{},`GetOrderByOrderId?id=${id}`).then((x:any)=>{setOrder(x.data)});

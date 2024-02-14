@@ -4,7 +4,7 @@ import CourseDetail from "./coursedetail"
 
 
 export const EditCourse = () =>{
-    const {id} = useParams();
+    const {} = useParams();
     return(
         <Layout>
             <CourseDetail></CourseDetail>

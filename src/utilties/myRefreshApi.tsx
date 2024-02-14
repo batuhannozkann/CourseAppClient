@@ -1,4 +1,4 @@
-import {createRefresh, useSignOut} from 'react-auth-kit';
+import {createRefresh} from 'react-auth-kit';
 import {identityServerApi} from './identityServerApi'
 import Cookies from 'js-cookie';
 

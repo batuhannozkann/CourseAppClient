@@ -1,10 +1,7 @@
-// Layout component (Layout.js)
-import React, { useEffect } from 'react';
+
 import Sidebar from '../sidebar/sidebar';
 import { Navbar } from '../navbar/navbar';
-import { identityServerApi } from '../../utilties/identityServerApi';
-import { setEncryptedCookie } from '../../utilties/cookieHelper';
-import Cookies from 'js-cookie'
+
 
 
 const Layout = ({ children }:any) => {

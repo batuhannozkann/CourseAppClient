@@ -2,9 +2,7 @@ import { useLocation } from "react-router-dom";
 import Layout from "../layouts/layout"
 import { FaStar } from "react-icons/fa";
 import { Course } from "../userinfo/course";
-interface FilteredCoursesProps {
-    filteredData: any; // filteredData'nın tipini belirleyin
-}
+
 export const FilteredCourses = ()=>{
     const location = useLocation();
     const filteredData = location.state.filteredData;
