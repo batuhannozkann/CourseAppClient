@@ -2,7 +2,6 @@ import { TiShoppingCart } from "react-icons/ti"
 import useApi from "../utilties/OcelotApi";
 import { BasketDto } from "../dtos/basketdto";
 import { AlertifyLibrary, NotificationPosition } from "../utilties/Alertify";
-import RequireAuth from "../components/layouts/RequireAuth";
 import { useIsAuthenticated } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
 
