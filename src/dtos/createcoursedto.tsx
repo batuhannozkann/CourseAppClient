@@ -10,4 +10,5 @@ interface CourseCreateDto {
     Description: string;
     CategoryId: string;
     Feature: FeatureDto;
+    userFullName:string;
 }

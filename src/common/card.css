@@ -33,4 +33,10 @@
   .info-box {
    display: none !important;
   }
+  .p-datascroller-list {
+    display: flex;
+  }
+  /* .p-datascroller-list li{
+    width: 100% !important;
+  } */
   

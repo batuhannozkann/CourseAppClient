@@ -21,3 +21,6 @@
     }
     
 }
+.deleteCourse:hover{
+    cursor: pointer;
+}

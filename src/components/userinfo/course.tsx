@@ -78,8 +78,7 @@ export const Course = (props: any) => {
               <div className="d-flex justify-content-between align-items-end mt-3">
                 <span className="fw-bold">${course.price}</span>
                 <span className="text-primary">
-                  <NavLink to={`/Course/View/${course.id}`}>View</NavLink>&nbsp;
-                  <i className="fa fa-angle-right"></i>
+                <span className="text-primary">{props.editable?<span className="mx-3"><NavLink className="text-danger" style={{textDecoration:"none"}} to={`/Course/Edit/${course.id}`}>Edit</NavLink>&nbsp;<i className="fa fa-angle-right text-danger"></i></span>:""}<NavLink style={{textDecoration:"none"}} to={`/Course/View/${course.id}`}>View</NavLink>&nbsp;<i className="fa fa-angle-right"></i></span>
                 </span>
                 </div>
               </div>

@@ -7,7 +7,7 @@ import { NotificationPosition } from "./Alertify";
 import Cookies from 'js-cookie';
 
 
-const identityServerUrl = "http://localhost:5001";
+const identityServerUrl = "http://4.156.208.165";
 export const identityServerApi = {
     login: async (email:string,password:string)=>{
         return await axios({
@@ -28,7 +28,7 @@ export const identityServerApi = {
           { firstName: firstName,lastName:lastName, UserName: email, Email: email, Password: password, City: "Istanbul" },
         )
           .then(() => {
-            axios.get(`http://localhost:5001/api/User/GenerateToken?email=${email}`)
+            axios.get(`${identityServerUrl}/api/User/GenerateToken?email=${email}`)
               .then(() => {
                 AlertifyLibrary.AlertifySuccess('Kayıt işleminiz başarıyla oluşmuştur.Lütfen emailinizi doğrulayınız.',NotificationPosition.topCenter);callbackFunction(); // callbackFunction'ı burada çağırın
               })

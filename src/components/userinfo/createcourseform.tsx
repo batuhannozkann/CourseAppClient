@@ -3,12 +3,14 @@ import { useFormik } from "formik";
 import useApi from '../../utilties/OcelotApi';
 import {useEffect, useRef, useState} from 'react';
 import { AlertifyLibrary, NotificationPosition } from "../../utilties/Alertify";
+import { getDecryptedCookie } from "../../utilties/cookieHelper";
 
 export const CreateCourseForm = ()=>{
   const {sendRequest} = useApi();
   const fileInputRef:any = useRef<HTMLInputElement | null>(null);
   const [categories,setCategories] = useState<Category[]>([]);
   const [counter,setCounter] = useState(0);
+  const [user,setUser] = useState(JSON.parse(getDecryptedCookie('user')));
   useEffect(()=>{
     if(counter==0)
     {
@@ -41,7 +43,8 @@ export const CreateCourseForm = ()=>{
         Picture: "",
         Description: createCourseFormik.values.description,
         CategoryId: createCourseFormik.values.categoryId,
-        Feature: {Duration:createCourseFormik.values.duration}
+        Feature: {Duration:createCourseFormik.values.duration},
+        userFullName:`${user.firstName} ${user.lastName}`
       }
       sendRequest('file','photostock','photo',{file:createCourseFormik.values.file}).then((x:any)=>{
         courseCreateDto.Picture=(x.data);

@@ -16,7 +16,6 @@ const CourseViewTemplate = ({id}:any) => {
   useEffect(()=>{
     sendRequest('get','catalog','course',"",`GetById/?id=${id}`).then((x:any)=>{
         setCourse(x.data)
-        console.log("3123123");
     });
 },[])
 if (!course) {

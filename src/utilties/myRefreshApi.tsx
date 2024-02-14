@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 
 const my_refresh_api = createRefresh({
-  interval: 10, // The time in sec to refresh the Access token 
+  interval:3, // The time in sec to refresh the Access token 
   refreshApiCallback: async (param:any): Promise<any>  =>  {
     try {
       const response:any = await identityServerApi.getTokenByRefreshToken(param.refreshToken);
@@ -18,6 +18,7 @@ const my_refresh_api = createRefresh({
     }
     catch (error) {
       Cookies.remove('_auth');
+      window.location.reload();
       return {
         isSuccess: false
       };

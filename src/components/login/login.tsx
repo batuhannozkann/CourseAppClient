@@ -28,6 +28,7 @@ export const Login = ()=>{
             
             const result:any =await identityServerApi.login(loginFormik.values.email,loginFormik.values.password);
             console.log(result);
+            console.log(result);
             var user:any;
             await identityServerApi.getUserInfoByToken(result.data.access_token).then((x:any)=>{user=x.data});
              if(signIn({

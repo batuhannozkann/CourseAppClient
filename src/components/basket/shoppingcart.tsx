@@ -16,7 +16,7 @@ const ShoppingCart = (props:any) => {
     setUser(JSON.parse(getDecryptedCookie("user")));
   },[])
   useEffect(()=>{
-    sendRequest('get','basket','basket').then((x:any)=>{setBasket(x.data);console.log(x.data)});
+    sendRequest('get','basket','basket').then((x:any)=>{setBasket(x.data);console.log(x)});
     console.log('çalıştı');
   },[props.trigger])
   useEffect(()=>{
@@ -70,7 +70,7 @@ const ShoppingCart = (props:any) => {
                              <div style={{ width: '80px' }}>
                                <h5 className="mb-0">${x.price}</h5>
                              </div>
-                             <a onClick={()=>{sendRequest('delete','basket','basket',{},`DeleteElement?courseId=${x.courseId}`).then((y)=>{console.log(y);setDeleteTrigger(deleteTrigger+1);AlertifyLibrary.AlertifyWarning(`${x.courseName} has deleted on your cart`,NotificationPosition.topCenter)})}} href="#!" style={{ color: '#cecece' }}><i className="fas fa-trash-alt"></i></a>
+                             <div className="deleteCourse" onClick={()=>{sendRequest('delete','basket','basket',{},`DeleteElement?courseId=${x.courseId}`).then((y)=>{console.log(y);setDeleteTrigger(deleteTrigger+1);AlertifyLibrary.AlertifyWarning(`${x.courseName} has deleted on your cart`,NotificationPosition.topCenter)})}}  style={{ color: '#cecece' }}><i className="fas fa-trash-alt"></i></div>
                            </div>
                          </div>
                        </div>
