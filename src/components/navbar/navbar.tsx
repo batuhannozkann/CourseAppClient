@@ -32,7 +32,7 @@ export const Navbar = ()=>{
         <>
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-dark">
     <div className="container-fluid m-2">
-        <a href="#" className = "logo"><img className="navbar-brand h-100 w-100" src="/src/assets/logo.png"></img></a>
+        <a href="#" className = "logo"><img className="navbar-brand h-100 w-100" src="https://firebasestorage.googleapis.com/v0/b/courseapplication-f3e34.appspot.com/o/logo.png?alt=media&token=12ea7708-7c5d-4a44-9860-087135530669"></img></a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
