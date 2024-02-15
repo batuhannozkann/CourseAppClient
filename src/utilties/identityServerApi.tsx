@@ -7,7 +7,7 @@ import { NotificationPosition } from "./Alertify";
 import Cookies from 'js-cookie';
 
 
-const identityServerUrl = "http://4.156.208.165";
+const identityServerUrl = "https://courseidentityserver.somee.com";
 export const identityServerApi = {
     login: async (email:string,password:string)=>{
         return await axios({
