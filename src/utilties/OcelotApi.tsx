@@ -6,7 +6,7 @@ import Cookies from 'js-cookie'
 import { identityServerApi } from './identityServerApi';
 
 const setApiUrl = (catalog:string, controller:string, action?:string) => {
-  const url = `http://20.31.102.169/services/${catalog}/${controller}`;
+  const url = `https://www.coursegatewayapi.somee.com/services/${catalog}/${controller}`;
   return action ? `${url}/${action}` : url;
 };
 
