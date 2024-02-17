@@ -33,14 +33,7 @@ export const Api:any = {
         'content-type': 'application/json'
       }
     }).catch(error => {
-      console.log(error.response);
-     if(error.response.status==401)
-     {
-      document.cookie = "_auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      document.cookie = "_auth_state=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    }
-    return Promise.reject(error);
+      return Promise.reject(error);
   });
   },
   file: async (catalog:string, controller:string, data?:any, action?:string,header?:string) => {
@@ -52,13 +45,7 @@ export const Api:any = {
         'content-type': 'multipart/form-data'
       }
     }).catch(error => {
-      console.log(error);
-      if(error.response.status==401)
-     {
-       Cookies.remove('_auth');
-      Cookies.remove('_auth_state')
-      Cookies.remove('user');
-    }
+      return Promise.reject(error);
     });
   },
   post: async (catalog:string, controller:string, data?:any, action?:string,header?:string) => {
@@ -70,13 +57,7 @@ export const Api:any = {
         'content-type': 'application/json',
       }
     }).catch(error => {
-      console.log(error);
-      if(error.response.status==401)
-     {
-      Cookies.remove('_auth');
-      Cookies.remove('_auth_state')
-      Cookies.remove('user');
-    }
+      return Promise.reject(error);
     });
   },
   delete: async (catalog:string, controller:string, data?:any, action?:string,header?:string) => {
@@ -88,13 +69,8 @@ export const Api:any = {
         'content-type': 'application/json',
       }
     }).catch(error => {
-      console.log(error);
-      if(error.response.status==401)
-     {
-      Cookies.remove('_auth');
-      Cookies.remove('_auth_state')
-      Cookies.remove('user');
-    }
+      return Promise.reject(error);
+      
     });
   },
   put: async (catalog:string, controller:string, data?:any, action?:string,header?:string) => {
@@ -106,13 +82,7 @@ export const Api:any = {
         'content-type': 'application/json',
       }
     }).catch(error => {
-      console.log(error);
-      if(error.response.status==401)
-     {
-      Cookies.remove('_auth');
-      Cookies.remove('_auth_state')
-      Cookies.remove('user');
-    }
+      return Promise.reject(error);     
     });
   }
 };
@@ -153,7 +123,6 @@ const useApi = () => {
       setIsLoading(false);
     }
   };
-
   return {
     isLoading,
     error,
