@@ -1,6 +1,6 @@
 import {useState } from 'react';
 import axios from 'axios';
-import {useAuthHeader,} from 'react-auth-kit';
+import {useAuthHeader} from 'react-auth-kit';
 import { getDecryptedCookie, setEncryptedCookie } from './cookieHelper';
 import Cookies from 'js-cookie'
 import { identityServerApi } from './identityServerApi';
@@ -22,7 +22,9 @@ const axiosWithAuth = (header?:string) => {
 };
 
 export const Api:any = {
+  
   get: async (catalog:string, controller:string, data?:any, action?:string,header?:string) => {
+  
     return axiosWithAuth(header)({
       method: 'get',
       url: setApiUrl(catalog, controller, action),
@@ -35,6 +37,7 @@ export const Api:any = {
      if(error.response.status==401)
      {
       Cookies.remove('_auth');
+      Cookies.remove('_auth_state')
       Cookies.remove('user');
       window.location.reload();
     }});
@@ -49,6 +52,13 @@ export const Api:any = {
       }
     }).catch(error => {
       console.log(error);
+      if(error.response.status==401)
+     {
+      Cookies.remove('_auth');
+      Cookies.remove('_auth_state')
+      Cookies.remove('user');
+      window.location.reload();
+    }
     });
   },
   post: async (catalog:string, controller:string, data?:any, action?:string,header?:string) => {
@@ -61,6 +71,13 @@ export const Api:any = {
       }
     }).catch(error => {
       console.log(error);
+      if(error.response.status==401)
+     {
+      Cookies.remove('_auth');
+      Cookies.remove('_auth_state')
+      Cookies.remove('user');
+      window.location.reload();
+    }
     });
   },
   delete: async (catalog:string, controller:string, data?:any, action?:string,header?:string) => {
@@ -73,6 +90,13 @@ export const Api:any = {
       }
     }).catch(error => {
       console.log(error);
+      if(error.response.status==401)
+     {
+      Cookies.remove('_auth');
+      Cookies.remove('_auth_state')
+      Cookies.remove('user');
+      window.location.reload();
+    }
     });
   },
   put: async (catalog:string, controller:string, data?:any, action?:string,header?:string) => {
@@ -85,6 +109,13 @@ export const Api:any = {
       }
     }).catch(error => {
       console.log(error);
+      if(error.response.status==401)
+     {
+      Cookies.remove('_auth');
+      Cookies.remove('_auth_state')
+      Cookies.remove('user');
+      window.location.reload();
+    }
     });
   }
 };
