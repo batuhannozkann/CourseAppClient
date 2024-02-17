@@ -1,6 +1,6 @@
 import {useState } from 'react';
 import axios from 'axios';
-import {useAuthHeader} from 'react-auth-kit';
+import {useAuthHeader, useSignOut} from 'react-auth-kit';
 import { getDecryptedCookie, setEncryptedCookie } from './cookieHelper';
 import Cookies from 'js-cookie'
 import { identityServerApi } from './identityServerApi';
@@ -39,7 +39,9 @@ export const Api:any = {
       document.cookie = "_auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       document.cookie = "_auth_state=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    }});
+    }
+    return Promise.reject(error);
+  });
   },
   file: async (catalog:string, controller:string, data?:any, action?:string,header?:string) => {
     return axiosWithAuth(header)({
@@ -119,6 +121,7 @@ const useApi = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const authHeader = useAuthHeader();
+  const signOut = useSignOut();
   var expiresDate = new Date();
   const sendRequest = async (method:any, catalog:string, controller:string, data?:any, action?:string) => {
     setIsLoading(true);
@@ -141,7 +144,11 @@ const useApi = () => {
       }
       return response.data;
     } catch (error:any) {
-      console.log(response);
+      if(error.response.status==401)
+      {
+        signOut();
+        window.location.reload();
+      }
     } finally {
       setIsLoading(false);
     }
