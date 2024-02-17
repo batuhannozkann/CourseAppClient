@@ -36,9 +36,9 @@ export const Api:any = {
       console.log(error.response);
      if(error.response.status==401)
      {
-      Cookies.remove('_auth');
-      Cookies.remove('_auth_state')
-      Cookies.remove('user');
+      document.cookie = "_auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      document.cookie = "_auth_state=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }});
   },
   file: async (catalog:string, controller:string, data?:any, action?:string,header?:string) => {
