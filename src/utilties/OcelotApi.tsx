@@ -39,7 +39,9 @@ export const Api:any = {
       Cookies.remove('_auth');
       Cookies.remove('_auth_state')
       Cookies.remove('user');
-      window.location.reload();
+      setTimeout(function() {
+        window.location.reload();
+    }, 2000);
     }});
   },
   file: async (catalog:string, controller:string, data?:any, action?:string,header?:string) => {
@@ -57,7 +59,9 @@ export const Api:any = {
       Cookies.remove('_auth');
       Cookies.remove('_auth_state')
       Cookies.remove('user');
-      window.location.reload();
+      setTimeout(function() {
+        window.location.reload();
+    }, 2000);
     }
     });
   },
@@ -76,7 +80,9 @@ export const Api:any = {
       Cookies.remove('_auth');
       Cookies.remove('_auth_state')
       Cookies.remove('user');
-      window.location.reload();
+      setTimeout(function() {
+        window.location.reload();
+    }, 2000);
     }
     });
   },
@@ -95,7 +101,9 @@ export const Api:any = {
       Cookies.remove('_auth');
       Cookies.remove('_auth_state')
       Cookies.remove('user');
-      window.location.reload();
+      setTimeout(function() {
+        window.location.reload();
+    }, 2000);
     }
     });
   },
@@ -114,7 +122,9 @@ export const Api:any = {
       Cookies.remove('_auth');
       Cookies.remove('_auth_state')
       Cookies.remove('user');
-      window.location.reload();
+      setTimeout(function() {
+        window.location.reload();
+    }, 2000);
     }
     });
   }
