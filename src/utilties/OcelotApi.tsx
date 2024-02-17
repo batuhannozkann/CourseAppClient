@@ -56,7 +56,7 @@ export const Api:any = {
       console.log(error);
       if(error.response.status==401)
      {
-      Cookies.remove('_auth');
+       Cookies.remove('_auth');
       Cookies.remove('_auth_state')
       Cookies.remove('user');
       setTimeout(function() {
