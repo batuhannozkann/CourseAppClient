@@ -5,21 +5,36 @@ import { NavLink } from 'react-router-dom';
 import { sliceText } from '../../utilties/commonfunctions';
 import { Dropdown } from 'primereact/dropdown';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import { Dialog } from 'primereact/dialog';
 import './css/course.css'
 import { InputText } from 'primereact/inputtext';
 import { Loading } from '../../utilties/loading';
-
-export const Course = (props: any) => {
+import useApi from '../../utilties/OcelotApi';
+import axios from 'axios';
+import { useAuthHeader } from 'react-auth-kit';
+import { AlertifyLibrary, NotificationPosition } from '../../utilties/Alertify';
+interface CourseDeleteDto {
+  Id:string;
+}
+export const Course = (props: any,{updateState}:any) => {
+    const {sendRequest} = useApi();
+    const authHeader = useAuthHeader()
     const [layout, setLayout]:any = useState<'list' | 'grid' | (string & Record<string, unknown>)>('grid');
     const [sortKey, setSortKey] = useState('');
     const [sortOrder, setSortOrder] = useState< 1 | 0 | -1 | undefined | null>();
     const [sortField, setSortField] = useState<string | undefined>();
     const [courses,setCourses]:any = useState(props.courses);
     const windowWidth:number = window.innerWidth;
-  const isMobile = windowWidth <= 990; 
-  // window.addEventListener('resize',(x:any)=>{
-  //   setWindowWidth(x.currentTarget.innerWidth);
-  // });
+    const isMobile = windowWidth <= 990;
+    const [visible, setVisible] = useState(false);
+    const [courseId,setCourseId] = useState<string>();
+    const deleteCourseHandle = (courseId:any)=>{
+      const courseDeleteDto:CourseDeleteDto = {
+        Id:courseId
+      }
+      sendRequest("delete","catalog","course",courseDeleteDto).then((x)=>{AlertifyLibrary.AlertifySuccess("Course has been sucessfully deleted",NotificationPosition.topCenter);console.log(x);props.updateState();});
+      setVisible(false);
+    }
 
     const sortOptions = [
         {label:'All',value:'all'},
@@ -105,11 +120,16 @@ export const Course = (props: any) => {
               <div className="d-flex justify-content-between install mt-3 align-items-end h-100">
                 <span className="fw-bold">${course.price}</span>
                 
-                <span className="text-primary">{props.editable?<span className="mx-3"><NavLink className="text-danger" style={{textDecoration:"none"}} to={`/Course/Edit/${course.id}`}>Edit</NavLink>&nbsp;<i className="fa fa-angle-right text-danger"></i></span>:""}<NavLink style={{textDecoration:"none"}} to={`/Course/View/${course.id}`}>View</NavLink>&nbsp;<i className="fa fa-angle-right"></i></span>
+                <span className="text-primary"> <NavLink style={{textDecoration:"none"}} to={`/Course/View/${course.id}`}>View</NavLink>&nbsp;<i className="fa fa-angle-right"></i>{props.editable?<span className="mx-3"><NavLink className="text-warning" style={{textDecoration:"none"}} to={`/Course/Edit/${course.id}`}>Edit</NavLink>&nbsp;<i className="fa fa-angle-right text-warning"></i></span>:""}
+                {props.editable?<span className="mx-0 text-danger"><NavLink to={"#"} className="text-danger" onClick={()=>{setCourseId(course.id);setVisible(true)}}>Delete </NavLink><i className="fa fa-times"></i></span>:""}
+                </span>
+                
               </div>
             </div>
           </div>
+          
       );
+      
   };
   
   const itemTemplate = (course:any, layout:any, index:number) => {
@@ -133,6 +153,14 @@ const listTemplate:any = (courses:any, layout:any) => {
     }
     return (
         <div className="container">
+            <Dialog headerClassName='text-danger' header="Delete Warning" visible={visible} onHide={() => setVisible(false)}
+                style={{ width: '40vw' }} breakpoints={{ '960px': '75vw', '641px': '100vw' }}>
+                <p className="text-dark">
+                Are you sure delete this item permanently ?
+                </p>
+                <button onClick={()=>{deleteCourseHandle(courseId?courseId:"")}} className="btn btn-danger me-2">Yes</button>
+                <button onClick={()=>{setVisible(false)}} className="btn btn-secondary">Close</button>
+            </Dialog>
                 <DataView value={courses?courses:undefined} listTemplate={listTemplate} layout={layout} paginator rows={6} sortField={sortField} sortOrder={sortOrder} header={header()} />
         </div>
     );

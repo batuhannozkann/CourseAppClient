@@ -18,6 +18,7 @@ const my_refresh_api = createRefresh({
     }
     catch (error) {
       Cookies.remove('_auth');
+      Cookies.remove('user');
       window.location.reload();
       return {
         isSuccess: false

@@ -14,21 +14,32 @@ export const SaleCourses = ()=>{
   const [counter,setCounter] = useState(0);
   const user = getDecryptedCookie('user');
   const isAuthenticated = useIsAuthenticated();
+  const [updateState,setUpdateState] = useState(0);
+  const {sendRequest} = useApi();
+  const handleUpdate = ()=>{
+    sendRequest('get','catalog','course',{},`GetByUserId`).then((x:any)=>{
+      console.log(user);
+      console.log(x);
+      setCourses([]);
+      x.data.map((x:CourseDto)=>{
+        setCourses(prev=>[...prev,x]);
+      });
+      setUpdateState(updateState+1);
+    });
+  }
   if(isAuthenticated())
   {
-    const {sendRequest} = useApi();
   useEffect(()=>{
-    if(counter==0)
-    {
+    console.log("fonksiyon işe yaradı");
       sendRequest('get','catalog','course',{},`GetByUserId`).then((x:any)=>{
         console.log(user);
         console.log(x);
+        setCourses([]);
         x.data.map((x:CourseDto)=>{
           setCourses(prev=>[...prev,x]);
         })
       });
       setCounter(counter+1);
-    }
   },[]);
   }
   const cardData = courses?.map((x: CourseDto) => ({
@@ -54,7 +65,7 @@ export const SaleCourses = ()=>{
       return(
         <RequireAuth>
         <Layout>
-          <Course cardData ={cardData} editable={true}></Course>
+          <Course updateState={handleUpdate} cardData ={cardData} editable={true}></Course>
         </Layout>
         </RequireAuth>
         

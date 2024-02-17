@@ -31,9 +31,13 @@ export const Api:any = {
         'content-type': 'application/json'
       }
     }).catch(error => {
-     console.log(error);
-      
-    });
+      console.log(error.response);
+     if(error.response.status==401)
+     {
+      Cookies.remove('_auth');
+      Cookies.remove('user');
+      window.location.reload();
+    }});
   },
   file: async (catalog:string, controller:string, data?:any, action?:string,header?:string) => {
     return axiosWithAuth(header)({
@@ -108,10 +112,10 @@ const useApi = () => {
       else if(Cookies.get('_cl_tk')){
         const token =getDecryptedCookie('_cl_tk');
         response = await Api[method](catalog, controller, data, action,`Bearer ${token}`);
-      }  
+      }
       return response.data;
     } catch (error:any) {
-      console.log(error);
+      console.log(response);
     } finally {
       setIsLoading(false);
     }

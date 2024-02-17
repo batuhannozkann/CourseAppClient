@@ -190,12 +190,34 @@ const AuthenticatedSidebar = (props: any) => {
   );
 };
 const NotAuthenticatedSidebar = () => {
+  const navigate = useNavigate();
+  const filterFormik = useFormik({
+    initialValues:{
+      minPrice:0,
+      maxPrice:0
+    },
+    onSubmit:(values)=>{
+      const filterParameters:FilterParameters={
+        categoryIds:selectedOptions.map((x:any)=>{return x.value}),
+        minPrice:values.minPrice,
+        maxPrice:values.maxPrice
+      }
+      sendRequest('post','catalog','course',filterParameters,'GetFilteredCourses').then((x:any)=>{navigate('/Course/FilteredCourses', { state: { filteredData: x.data } });
+    });
+    }
+  })
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  // Seçeneklerin değiştiğinde çağrılacak işlev
+  const handleSelectChange = (selectedOptions:any) => {
+    setSelectedOptions(selectedOptions);
+    console.log(selectedOptions);
+  };
   const { sendRequest } = useApi();
   const [categories,setCategories] = useState<Category[]>();
   useEffect(()=>{
     sendRequest('get','catalog','category').then((x?:any)=>{console.log(x);setCategories(x?.data)});
   },[]);
-  const categoryOptions = categories?.map((x: Category) => ({
+  const categoryOptions:any = categories?.map((x: Category) => ({
    value:x.id,
    label:x.name
   })) || [];
@@ -248,6 +270,8 @@ const NotAuthenticatedSidebar = () => {
         options={categoryOptions}
         className="basic-multi-select text-dark border-1"
         classNamePrefix="select"
+        value={selectedOptions} // Seçili değerlerin durumunu ata
+        onChange={handleSelectChange} // Değişiklik olduğunda çalışacak işlevi belirt
   />
       </div>
       {/* Min ve Max Price Inputları */}
@@ -265,12 +289,13 @@ const NotAuthenticatedSidebar = () => {
         <input type="number" className="form-control" id="maxPrice" />
       </div>
       </div>
+      <a className="btn btn-primary" onClick={()=>{filterFormik.submitForm();}}>Filter</a>
       </ul>
     </div>
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({updateUser}:any) => {
   const [user,setUser]:any = useState();
   const isAuthenticated = useIsAuthenticated();    
   useEffect(()=>{
@@ -280,7 +305,7 @@ const Sidebar = () => {
       else{
           setUser(JSON.parse(getDecryptedCookie("user")));
       }
-  },[])
+  },[updateUser])
   const authUser:any = useAuthUser();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
