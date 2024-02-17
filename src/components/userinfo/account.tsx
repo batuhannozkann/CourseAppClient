@@ -4,12 +4,10 @@ import "./css/coursedetail.css";
 import { useFormik } from 'formik';
 import { identityServerApi } from "../../utilties/identityServerApi";
 import { AlertifyLibrary, NotificationPosition } from "../../utilties/Alertify";
-import Cookies from 'js-cookie'
 
 const Account = ({updateUser}:any) => {
   const {sendRequest}  = useApi();
     const[user,setUser]:any = useState<any>();
-    const [state,setState] = useState(0);
     const handleFileChange = (event:any) => {
         const file = event.target.files[0];
         accountFormik.setFieldValue('file', file);

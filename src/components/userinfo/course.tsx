@@ -10,15 +10,12 @@ import './css/course.css'
 import { InputText } from 'primereact/inputtext';
 import { Loading } from '../../utilties/loading';
 import useApi from '../../utilties/OcelotApi';
-import axios from 'axios';
-import { useAuthHeader } from 'react-auth-kit';
 import { AlertifyLibrary, NotificationPosition } from '../../utilties/Alertify';
 interface CourseDeleteDto {
   Id:string;
 }
-export const Course = (props: any,{updateState}:any) => {
+export const Course = (props: any) => {
     const {sendRequest} = useApi();
-    const authHeader = useAuthHeader()
     const [layout, setLayout]:any = useState<'list' | 'grid' | (string & Record<string, unknown>)>('grid');
     const [sortKey, setSortKey] = useState('');
     const [sortOrder, setSortOrder] = useState< 1 | 0 | -1 | undefined | null>();
