@@ -7,18 +7,20 @@ import RequireAuth from '../layouts/RequireAuth';
 import Layout from '../layouts/layout';
 import {useFormik } from 'formik';
 import { orderSchema } from '../../schemas';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { TailSpinLoader } from '../../utilties/loading';
 
 
 export const Order = () => {
   const navigate = useNavigate();
-  const {sendRequest} = useApi();
+  const {sendRequest,isLoading} = useApi();
   const [deleteTrigger,setDeleteTrigger] = useState(0);
   const [basket,setBasket] = useState<BasketDto>();
   useEffect(()=>{
     sendRequest('get','basket','basket').then((x:any)=>{setBasket(x.data);console.log(x.data)});
     console.log('çalıştı');
   },[deleteTrigger])
+  console.log(basket);
   useEffect(() => {
       orderFormik.validateForm();
   }, [])
@@ -99,6 +101,16 @@ export const Order = () => {
         
     }
   });
+  if(isLoading==true)
+  {
+    return(
+      <RequireAuth>
+        <Layout>
+    <TailSpinLoader></TailSpinLoader>
+      </Layout>
+    </RequireAuth>
+    )
+  }
 
   return (
     <RequireAuth>
@@ -112,8 +124,8 @@ export const Order = () => {
                 <div className="row">
 
                   <div className="col-lg-7">
-                    <h5 className="mb-3"><a href="#!" className="text-body"><i
-                        className="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
+                    <h5 className="mb-3"><NavLink to="/" className="text-body"><i
+                        className="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</NavLink></h5>
                     <hr />
 
                     <div className="d-flex justify-content-between align-items-center mb-4">
@@ -275,7 +287,7 @@ export const Order = () => {
                           <p className="mb-2">Total(Incl. taxes)</p>
                           <p className="mb-2">${basket?.totalPrice}</p>
                         </div>
-                        {basket?.totalPrice==0?<button type="button" className="btn btn-danger btn-block btn-lg">
+                        {basket==undefined || basket.basketItems.length==0 ?<button type="button" className="btn btn-danger btn-block btn-lg">
                           <div className="d-flex justify-content-between">
                             <span>Your cart empty</span>
                             </div>

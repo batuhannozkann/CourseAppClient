@@ -29,9 +29,6 @@ export const MainPage = ()=>{
         <div className="row cardSection">     
                 <Card  courses={courses}></Card>
         </div>
-        <div className="my-5 d-flex justify-content-center">
-            <a className="btn btn-outline-dark">View All</a>
-        </div>
         </Layout>
         </>
     )

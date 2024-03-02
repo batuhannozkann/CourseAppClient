@@ -30,7 +30,7 @@ export const Navbar = ({updateUser}:any)=>{
     },[updateUser])
     return(
         <>
-<nav className="navbar  navbar-expand-lg navbar-dark bg-dark border-dark">
+<nav className="navbar navbar-expand-lg navbar-dark bg-dark border-dark">
     <div className="container-fluid row m-2">
         <a href="#" className ={`${isMobile?"col-3":"col-1"} logo`}><img className={`navbar-brand h-100 ${isMobile?"w-100":""}`} src="https://firebasestorage.googleapis.com/v0/b/courseapplication-f3e34.appspot.com/o/logo.png?alt=media&token=12ea7708-7c5d-4a44-9860-087135530669"></img></a>
         <button className="navbar-toggler col-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -70,16 +70,6 @@ export const Navbar = ({updateUser}:any)=>{
                         Courses(On sale)
                     </NavLink>
                 </li>
-                <li className="nav-item">
-                    <NavLink
-                        to="/Contact"
-                        className={({ isActive, isPending }) =>
-                        isPending ? "" : isActive ? "nav-link text-white mx-lg-3 border-bottom border-dark " : "nav-link text-white mx-lg-3"
-                        }
-                        >
-                        Contact
-                    </NavLink>
-                </li>
             </ul>
             <div className="ms-lg-2 my-sm-2 my-lg-0 d-inline-block">
                 <div className="d-flex">
@@ -95,11 +85,8 @@ export const Navbar = ({updateUser}:any)=>{
                                             </NavLink></li>
                                             </ul>
                                         </div>
-                                        {isMobile?<div className="ms-3">
-                                        <NavLink onClick={()=>{setTriggerCart(triggerCart+1)}} to={isMobile?"/User/Basket":"#"} className="text-white text-decoration-none">
-                                        <TiShoppingCart className="text-white" />
-                                        </NavLink>
-                                        </div>
+                                        {isMobile?
+                                        ""
                                         :
                                         <div className="ms-3 dropdown">
                                         <NavLink onClick={()=>{setTriggerCart(triggerCart+1)}} to="#" className="text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -118,14 +105,14 @@ export const Navbar = ({updateUser}:any)=>{
                                         
 
                                     </>
-                                    :<><NavLink
+                                    :<><NavLink style={{marginTop:`${isMobile?"10":""}`}}
                                         to="/Login"
-                                        className={({ isActive, isPending }) => isPending ? "btn btn-sm btn-outline-light ms-2" : isActive ? "btn btn-sm btn-outline-light ms-2" : "btn btn-sm btn-outline-light ms-2"}
+                                        className={({ isActive, isPending }) => isPending ? "btn btn-sm btn-outline-light" : isActive ? "btn btn-sm btn-outline-light" : "btn btn-sm btn-outline-light"}
                                     >
                                         Login
-                                    </NavLink><NavLink
+                                    </NavLink><NavLink style={{marginTop:`${isMobile?"10":""}`}}
                                         to="/SignUp"
-                                        className={({ isActive, isPending }) => isPending ? "btn btn-sm btn-outline-light ms-2" : isActive ? "btn btn-sm btn-outline-light ms-2" : "btn btn-sm btn-outline-light ms-2"}
+                                        className={({ isActive, isPending }) => isPending ? "btn btn-sm btn-outline-light" : isActive ? "btn btn-sm btn-outline-light ms-2" : "btn btn-sm btn-outline-light ms-2"}
                                     >
                                         Sign Up
                                     </NavLink></>}

@@ -6,11 +6,11 @@ import {RequireAuth} from 'react-auth-kit';
 import { ForgotPassword } from './components/forgotpassword/forgotPassword.tsx';
 import { ResetPassword } from './components/forgotpassword/resetPassword.tsx';
 import {User} from './components/userinfo/userinfo.tsx'
-import { SaleCourses } from './components/userinfo/salecourses.tsx';
-import { CreateCourse } from './components/userinfo/createcourse.tsx';
-import { PurchasedCourses } from './components/userinfo/purchasedcourses.tsx';
-import { EditCourse } from './components/userinfo/editcourse.tsx';
-import { CourseView } from './components/userinfo/courseview.tsx';
+import { SaleCourses } from './components/course/salecourses.tsx';
+import { CreateCourse } from './components/course/createcourse.tsx';
+import { PurchasedCourses } from './components/course/purchasedcourses.tsx';
+import { EditCourse } from './components/course/editcourse.tsx';
+import { CourseView } from './components/course/courseview.tsx';
 import { ShoppingCartMobile } from './components/basket/shoppingcartmobile.tsx';
 import { Order } from './components/order/order.tsx';
 import { OrderDetail } from './components/order/orderdetail.tsx';

@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import Layout from "../layouts/layout"
 import { FaStar } from "react-icons/fa";
-import { Course } from "../userinfo/course";
+import { Course } from "../course/course";
 
 export const FilteredCourses = ()=>{
     const location = useLocation();

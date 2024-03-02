@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "./signup.css";
 import { signUpSchema } from "../../schemas/index.tsx";
 import { identityServerApi } from "../../utilties/identityServerApi.tsx";
+import { Footer } from "../footer/footer.tsx";
 export const SignUp = ()=>{
 const navigate = useNavigate();
 const signUpFormik = useFormik({
@@ -63,6 +64,9 @@ return(
                     >Sign In </NavLink></span>
                 </div>
             </div>
+        </div>
+        <div>
+            <Footer />
         </div>
     </div>
         </>

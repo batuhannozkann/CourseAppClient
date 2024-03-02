@@ -1,17 +1,44 @@
 import "./css/createcourse.css"
-import { useFormik } from "formik";
+import { useFormik, validateYupSchema } from "formik";
 import useApi from '../../utilties/OcelotApi';
 import {useEffect, useRef, useState} from 'react';
 import { AlertifyLibrary, NotificationPosition } from "../../utilties/Alertify";
 import { getDecryptedCookie } from "../../utilties/cookieHelper";
+import { TailSpinLoader } from "../../utilties/loading";
+import { createFormSchema } from "../../schemas";
 
 export const CreateCourseForm = ()=>{
-  const {sendRequest} = useApi();
+  const {sendRequest,isLoading} = useApi();
   const fileInputRef:any = useRef<HTMLInputElement | null>(null);
   const [categories,setCategories] = useState<Category[]>([]);
   const [counter,setCounter] = useState(0);
   const user= JSON.parse(getDecryptedCookie('user'));
+  const handleOnClick=()=>{
+    console.log(createCourseFormik.values.file)
+    if(createCourseFormik.errors)
+    {
+        const errorFields = [
+            'name',
+            'category',
+            'description',
+            'price',
+            'duration',
+            'file'
+          ];
+        const errorsObject = Object.values(createCourseFormik.errors);
+        var schemaErrors = ""
+        errorFields.forEach((_field,index) => {
+            const errorMessage = errorsObject[index];
+            if (errorMessage) {
+              schemaErrors += errorMessage + '<br>';
+            }
+          });
+          schemaErrors!=""?AlertifyLibrary.AlertifyWarning(schemaErrors,NotificationPosition.topCenter):"";
+        
+    }
+  }
   useEffect(()=>{
+    createCourseFormik.validateForm();
     if(counter==0)
     {
       sendRequest('get','catalog','category').then((x:any)=>{
@@ -36,7 +63,9 @@ export const CreateCourseForm = ()=>{
       duration: 0,
       file:{}     // Başlangıç değeri 0 ya da istediğiniz bir sayı
   },
+  validationSchema:createFormSchema,
     onSubmit: async ()=>{
+      console.log(isLoading);
       const courseCreateDto:CourseCreateDto = {
         Name: createCourseFormik.values.name,
         Price: createCourseFormik.values.price,
@@ -50,6 +79,7 @@ export const CreateCourseForm = ()=>{
         courseCreateDto.Picture=(x.data);
         sendRequest('post','catalog','course',courseCreateDto
           ).then(()=>{
+          console.log(isLoading);
           createCourseFormik.resetForm();
           if(fileInputRef.current)
           {
@@ -60,6 +90,10 @@ export const CreateCourseForm = ()=>{
       
     }
 });
+if(isLoading==true)
+{
+  return(<TailSpinLoader></TailSpinLoader>);
+}
     return(
         <div className="container-fluid px-1 py-5 mx-auto">
       <div className="row d-flex justify-content-center">
@@ -108,7 +142,7 @@ export const CreateCourseForm = ()=>{
             </div>
               <div className="row justify-content-end">
                 <div className="form-group col-sm-12">
-                  <button type="submit" className="btn-block btn-primary mt-2">Create</button>
+                  <button onClick={()=>{handleOnClick()}} type="submit" className="btn-block btn-primary mt-2">Create</button>
                   
                 </div>
               </div>

@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import useApi from './../../utilties/OcelotApi'
-import "./css/coursedetail.css";
+import "../course/css/coursedetail.css"
 import { useFormik } from 'formik';
 import { identityServerApi } from "../../utilties/identityServerApi";
 import { AlertifyLibrary, NotificationPosition } from "../../utilties/Alertify";
+import { TailSpinLoader } from "../../utilties/loading";
 
 const Account = ({updateUser}:any) => {
   const {sendRequest}  = useApi();
+  const[loading,setLoading] = useState(0);
     const[user,setUser]:any = useState<any>();
     const handleFileChange = (event:any) => {
         const file = event.target.files[0];
@@ -41,6 +43,8 @@ const Account = ({updateUser}:any) => {
       linkedInAddress:""
     },
     onSubmit: values => {
+      setLoading(1);
+
         const userInfoDto:UpdateUserDto={
             firstName: values.firstname,
             lastName: values.lastname,
@@ -54,24 +58,28 @@ const Account = ({updateUser}:any) => {
         if(values.file=="")
          {
             console.log(userInfoDto);
-             identityServerApi.updateUserInfoFromService(userInfoDto).then(()=>{AlertifyLibrary.AlertifySuccess('Account information has been succesfully updated',NotificationPosition.topCenter)});
+             identityServerApi.updateUserInfoFromService(userInfoDto).then(()=>{AlertifyLibrary.AlertifySuccess('Account information has been succesfully updated',NotificationPosition.topCenter)}).finally(()=>setLoading(0));
          }
          else{
              sendRequest("file","photostock","photo",{file:values.file}).then(((x:any)=>{
                 userInfoDto.picture=x.data;
-                 identityServerApi.updateUserInfoFromService(userInfoDto).then(()=>{AlertifyLibrary.AlertifySuccess('Account information has been succesfully updated',NotificationPosition.topCenter);user.picture=userInfoDto.picture;updateUser()});
+                 identityServerApi.updateUserInfoFromService(userInfoDto).then(()=>{AlertifyLibrary.AlertifySuccess('Account information has been succesfully updated',NotificationPosition.topCenter);user.picture=userInfoDto.picture;updateUser()}).finally(()=>{setLoading(0)});
              }))
          }
         
     },
   });
+  if(loading==1)
+  {
+    return(<TailSpinLoader></TailSpinLoader>)
+  }
   return (
     <div className="container-xl px-4 mt-4">
       <nav className="nav nav-borders">
         <a className="nav-link active ms-0" href="#" target="__blank">Profile</a>
-        <a className="nav-link" href="#" target="__blank">Billing</a>
+        {/* <a className="nav-link" href="#" target="__blank">Billing</a>
         <a className="nav-link" href="#" target="__blank">Security</a>
-        <a className="nav-link" href="#" target="__blank">Notifications</a>
+        <a className="nav-link" href="#" target="__blank">Notifications</a> */}
       </nav>
       <hr className="mt-0 mb-4" />
       <div className="row">
@@ -97,7 +105,7 @@ const Account = ({updateUser}:any) => {
                       className="form-control rounded"
                       id="inputFirstName"
                       type="text"
-                      placeholder="Enter course name"
+                      placeholder="Enter first name"
                       name="firstname"
                       value={accountFormik.values.firstname}
                       onChange={accountFormik.handleChange}
@@ -110,7 +118,7 @@ const Account = ({updateUser}:any) => {
                        className="form-control rounded"
                        id="inputLastName"
                        type="text"
-                       placeholder="Enter course name"
+                       placeholder="Enter last name"
                        name="lastname"
                        value={accountFormik.values.lastname}
                        onChange={accountFormik.handleChange}

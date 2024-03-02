@@ -13,27 +13,105 @@ import { setEncryptedCookie, getDecryptedCookie } from '../../utilties/cookieHel
 import Select from 'react-select'
 import useApi from '../../utilties/OcelotApi';
 import { useFormik } from 'formik';
+import { Dialog } from 'primereact/dialog';
+import { TiShoppingCart } from 'react-icons/ti';
 
 
 
 const MobileNavbar = () => {
+  const navigate = useNavigate();
+  const filterFormik = useFormik({
+    initialValues:{
+      minPrice:0,
+      maxPrice:0
+    },
+    onSubmit:(values)=>{
+      const filterParameters:FilterParameters={
+        categoryIds:selectedOptions.map((x:any)=>{return x.value}),
+        minPrice:values.minPrice,
+        maxPrice:values.maxPrice
+      }
+      sendRequest('post','catalog','course',filterParameters,'GetFilteredCourses').then((x:any)=>{navigate('/Course/FilteredCourses', { state: { filteredData: x.data } });
+    });
+    }
+  })
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  // Seçeneklerin değiştiğinde çağrılacak işlev
+  const handleSelectChange = (selectedOptions:any) => {
+    setSelectedOptions(selectedOptions);
+    console.log(selectedOptions);
+  };
+  const { sendRequest } = useApi();
+  const [categories,setCategories] = useState<Category[]>();
+  useEffect(()=>{
+    sendRequest('get','catalog','category').then((x?:any)=>{console.log(x);setCategories(x?.data)});
+  },[]);
+  const categoryOptions:any = categories?.map((x: Category) => ({
+   value:x.id,
+   label:x.name
+  })) || [];
+  const [visible, setVisible] = useState(false);
+  const [triggerCart,setTriggerCart] = useState(0);
   return (
     <nav className="navbar mobile-navbar navbar-dark bg-dark">
       <div className="container-fluid">
         <NavLink to="/" className="navbar-brand">
           <svg className="bi me-2" width="40" height="32"><use xlinkHref="#bootstrap"></use></svg>
-          Sidebar
         </NavLink>
         <ul className="navbar-nav d-flex flex-row">
           <li className="nav-item">
             <NavLink to="/" className="nav-link">Home</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/about" className="nav-link">About</NavLink>
+            <a onClick={()=>{setVisible(true)}} className="nav-link">Filter</a>
+          </li>
+          <li className="nav-item">
+          <NavLink onClick={()=>{setTriggerCart(triggerCart+1)}} to={"/User/Basket"} className="text-white text-decoration-none">
+          <TiShoppingCart className="text-white" style={{height:"100%"}} />
+          </NavLink>
           </li>
         </ul>
       </div>
+      <Dialog header="Filter" visible={visible} style={{ width: '75vw' }} onHide={() => setVisible(false)}>
+    <div className="mb-3 mt-3">
+        <label htmlFor="category" className="form-label text-dark">
+          Category:
+        </label>
+        <Select
+        theme={(theme) => ({
+          ...theme,
+          borderRadius: 0,
+          colors: {
+            ...theme.colors,
+          },
+        })}
+        isMulti
+        name="categoryIds"
+        options={categoryOptions}
+        className="basic-multi-select text-dark border-1"
+        classNamePrefix="select"
+        value={selectedOptions} // Seçili değerlerin durumunu ata
+        onChange={handleSelectChange} // Değişiklik olduğunda çalışacak işlevi belirt
+  />
+      </div>
+      <div className="row">
+      <div className="mb-3 col-6">
+        <label htmlFor="minPrice" className="form-label text-dark">
+          Min Price:
+        </label>
+        <input onChange={filterFormik.handleChange} type="number" name="minPrice" className="form-control" id="minPrice" />
+      </div>
+      <div className="mb-3 col-6">
+        <label htmlFor="maxPrice" className="form-label text-dark">
+          Max Price:
+        </label>
+        <input onChange={filterFormik.handleChange} type="number" name="maxPrice" className="form-control" id="maxPrice" />
+      </div>
+      </div>
+      <a className="btn btn-primary" onClick={()=>{filterFormik.submitForm();}}>Filter</a>
+      </Dialog>
     </nav>
+    
   );
 };
 const AuthenticatedSidebar = (props: any) => {

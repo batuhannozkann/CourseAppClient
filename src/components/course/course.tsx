@@ -20,7 +20,7 @@ export const Course = (props: any) => {
     const [sortKey, setSortKey] = useState('');
     const [sortOrder, setSortOrder] = useState< 1 | 0 | -1 | undefined | null>();
     const [sortField, setSortField] = useState<string | undefined>();
-    const [courses,setCourses]:any = useState(props.courses);
+    const [courses,setCourses]:any = useState(props.cardData);
     const windowWidth:number = window.innerWidth;
     const isMobile = windowWidth <= 990;
     const [visible, setVisible] = useState(false);
@@ -142,12 +142,7 @@ const listTemplate:any = (courses:any, layout:any) => {
   
     return <div className="grid grid-nogutter row">{courses.map((course:any, index:number) => itemTemplate(course, layout, index))}</div>;
 };
-    if(!courses)
-    {
-      return(
-        <Loading></Loading>
-      )
-    }
+    
     return (
         <div className="container">
             <Dialog headerClassName='text-danger' header="Delete Warning" visible={visible} onHide={() => setVisible(false)}

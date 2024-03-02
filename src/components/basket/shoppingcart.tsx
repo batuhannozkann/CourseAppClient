@@ -34,8 +34,8 @@ const ShoppingCart = (props:any) => {
                 <div className="row">
 
                   <div className="col-lg-7">
-                    <h5 className="mb-3"><a href="#!" className="text-body"><i
-                        className="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
+                    <h5 className="mb-3"><NavLink to="/" className="text-body"><i
+                        className="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</NavLink></h5>
                     <hr />
 
                     <div className="d-flex justify-content-between align-items-center mb-4">
@@ -57,18 +57,18 @@ const ShoppingCart = (props:any) => {
                              <div>
                                <img
                                  src={x.coursePicture}
-                                 className="img-fluid rounded-3" alt="Shopping item" style={{ width: '65px' }} />
+                                 className=" img-fluid rounded-3" alt="Shopping item" width={"160vw"} />
                              </div>
                              <div className="ms-3">
-                               <h5>{x.courseName}</h5>
+                               <h6>{x.courseName}</h6>
                                <p className="small mb-0"></p>
                              </div>
                            </div>
                            <div className="d-flex flex-row align-items-center">
-                             <div style={{ width: '50px' }}>
+                             <div style={{ width: '30%' }}>
                              </div>
-                             <div style={{ width: '80px' }}>
-                               <h5 className="mb-0">${x.price}</h5>
+                             <div style={{ width: '110px' }}>
+                               <h6 className="mb-0">${x.price}</h6>
                              </div>
                              <div className="deleteCourse" onClick={()=>{sendRequest('delete','basket','basket',{},`DeleteElement?courseId=${x.courseId}`).then((y)=>{console.log(y);setDeleteTrigger(deleteTrigger+1);AlertifyLibrary.AlertifyWarning(`${x.courseName} has deleted on your cart`,NotificationPosition.topCenter)})}}  style={{ color: '#cecece' }}><i className="fas fa-trash-alt"></i></div>
                            </div>

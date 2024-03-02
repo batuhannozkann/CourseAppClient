@@ -6,7 +6,7 @@ import { useIsAuthenticated } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
 
 
-const AddToCart = ({course,size}:any) => {
+const AddToCart = ({course,size,isMobile}:any) => {
     const navigate = useNavigate();
     const isAuthenticated = useIsAuthenticated();
     const {sendRequest} = useApi();
@@ -44,7 +44,7 @@ const AddToCart = ({course,size}:any) => {
     return(
         <div>
             <a onClick={handleOnClick} className={className}>
-        Add to cart <TiShoppingCart />
+        {isMobile?"":"Add to cart"}<TiShoppingCart />
       </a>      </div>
          
         )

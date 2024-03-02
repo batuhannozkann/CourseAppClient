@@ -15,6 +15,7 @@ export const SaleCourses = ()=>{
   const user = getDecryptedCookie('user');
   const isAuthenticated = useIsAuthenticated();
   const [updateState,setUpdateState] = useState(0);
+  const [loading,setLoading] = useState(0);
   const {sendRequest} = useApi();
   const handleUpdate = ()=>{
     sendRequest('get','catalog','course',{},`GetByUserId`).then((x:any)=>{
@@ -25,6 +26,7 @@ export const SaleCourses = ()=>{
         setCourses(prev=>[...prev,x]);
       });
       setUpdateState(updateState+1);
+      
     });
   }
   if(isAuthenticated())
@@ -38,6 +40,7 @@ export const SaleCourses = ()=>{
         x.data.map((x:CourseDto)=>{
           setCourses(prev=>[...prev,x]);
         })
+        setLoading(1);
       });
       setCounter(counter+1);
   },[]);
@@ -51,7 +54,7 @@ export const SaleCourses = ()=>{
     description: x.description,
     price: x.price,
   })) || [];
-  if(counter==0)
+  if(loading==0)
       {
         return(
           <RequireAuth>

@@ -13,6 +13,7 @@ export const PurchasedCourses = ()=>{
   const {sendRequest} = useApi();
   const [courses,setCourses] = useState<CourseDto[]>([]); 
   const [counter,setCounter] = useState(0);
+  const [loading,setLoading] = useState(0);
   if(isAuthenticated())
   {
     useEffect(()=>{
@@ -23,6 +24,7 @@ export const PurchasedCourses = ()=>{
           x?.data.map((x:any)=>{
             setCourses((prev)=>[...prev,x.course]);
           })
+          setLoading(1);
         });
         setCounter(counter+1);
       }
@@ -37,7 +39,7 @@ export const PurchasedCourses = ()=>{
     description: x.description,
     price: x.price,
   })) || [];
-      if(counter==0)
+      if(loading==0)
       {
         return(
           <RequireAuth>

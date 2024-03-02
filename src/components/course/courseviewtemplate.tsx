@@ -46,7 +46,7 @@ return (
             <p><b>Name:</b> {course?.name}</p>
             {isMobile?<><p><b>Category:</b> {course?.category.name}</p><p><b>Skills:</b> </p></>:""}
             <p><b>Date:</b> 14.02.2020</p>
-            <p><b>Created:</b> James Doe</p>
+            <p><b>Created:</b>{course.userFullName}</p>
             <p><b>Duration:</b>{course?.feature.duration}hours</p>
             <p className="mb-0"><b>Price:</b> ${course?.price}</p>
           </div>

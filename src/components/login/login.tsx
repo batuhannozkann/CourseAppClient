@@ -8,6 +8,7 @@ import 'alertifyjs/build/css/alertify.css';
 import { identityServerApi } from "../../utilties/identityServerApi.tsx";
 import "./login.css";
 import { loginSchema } from "../../schemas/index.tsx";
+import { Footer } from "../footer/footer.tsx";
 
 
 export const Login = ()=>{
@@ -41,7 +42,7 @@ export const Login = ()=>{
     
     return(
         <>
-        <div className="">
+        <div className="" style={{minHeight:"100vh", position: "relative"}}>
         <Navbar/>
         <div className="d-flex justify-content-center">
         <div className="col-lg-3 col-9 my-5 text-center border border-dark p-5">
@@ -79,7 +80,11 @@ export const Login = ()=>{
             </div>
         </div>
         </div>
+        <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
+            <Footer />
         </div>
+        </div>
+        
         </>
     )
 }

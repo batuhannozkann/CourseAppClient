@@ -114,10 +114,11 @@ const useApi = () => {
       }
       return response.data;
     } catch (error:any) {
+      console.log(error);
       if(error.response.status==401)
       {
         signOut();
-        window.location.reload();
+        
       }
     } finally {
       setIsLoading(false);
