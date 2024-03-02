@@ -122,7 +122,7 @@ export const OrderDetail = () => {
             <div className="row my-4">
                 <div className="col-sm-6">
                     <div className="text-sm-end mt-2 mt-sm-0">
-                        <a href="ecommerce-checkout.html" className="btn btn-success">
+                        <a href="/User/PurchasedCourses" className="btn btn-success">
                             <i className="mdi mdi-cart-outline me-1"></i> Continue Learn </a>
                     </div>
                 </div> {/* end col */}
