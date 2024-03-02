@@ -8,7 +8,6 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { Dialog } from 'primereact/dialog';
 import './css/course.css'
 import { InputText } from 'primereact/inputtext';
-import { Loading } from '../../utilties/loading';
 import useApi from '../../utilties/OcelotApi';
 import { AlertifyLibrary, NotificationPosition } from '../../utilties/Alertify';
 interface CourseDeleteDto {

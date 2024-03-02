@@ -1,6 +1,6 @@
 import useApi from "../utilties/OcelotApi";
 import { sliceText } from "../utilties/commonfunctions";
-import { Loading, TailSpinLoader } from "../utilties/loading";
+import { TailSpinLoader } from "../utilties/loading";
 import AddToCart from "./addtocart";
 import { NavLink, useNavigate } from "react-router-dom";
 

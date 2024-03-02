@@ -9,7 +9,6 @@ import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { DataView } from "primereact/dataview";
 import AddToCart from "./addtocart";
-import { TiShoppingCart } from "react-icons/ti";
 
 export const Card = (props:any) =>{
   const [layout, setLayout] = useState<"grid" | "list">("grid"); 
