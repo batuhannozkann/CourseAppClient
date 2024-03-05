@@ -44,7 +44,7 @@ export const orderSchema = yup.object().shape({
     cvv:yup.string().matches(/^[0-9]{3}$/,'Cvv must be at least3 characters').required("Please enter credit card cvv")
 })
 export const createFormSchema = yup.object().shape({
-    name: yup.string().required("Course name is required"),
+    name: yup.string().required("Course name is required").min(10).max(75),
     categoryId: yup.string().notOneOf(["default"], "Please select a category").required("Category is required"),
     description: yup.string().required("Description is required"),
     price: yup.number().min(1, "Price must be greater than 0").required("Price is required"),

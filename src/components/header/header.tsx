@@ -12,7 +12,7 @@ export const Header = () =>{
           <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button> */}
         </div>
         <div style={{height:'50vh'}} className="carousel-inner">
-          <div className="carousel-item position-absolute active h-100" style={{ background: "url('https://firebasestorage.googleapis.com/v0/b/courseapplication-f3e34.appspot.com/o/White%20Minimalist%20Simple%20Aesthetic%20Name%20Twitter%20Header%20(2).jpg?alt=media&token=b9e81b6d-7f88-4c1b-863a-f54bbe810f4b')" ,backgroundSize:'cover',backgroundColor:'black'}}>
+          <div className="carousel-item position-absolute active h-100" style={{ background: "url('https://firebasestorage.googleapis.com/v0/b/courseapplication-f3e34.appspot.com/o/White%20Minimalist%20Simple%20Aesthetic%20Name%20Twitter%20Header%20(2).png?alt=media&token=127e00bc-607c-4afc-a6cc-93e68253a264')" ,backgroundSize:'cover',backgroundColor:'black'}}>
           </div>
           {/* <div className="carousel-item h-100" style={{ backgroundImage: "url('https://source.unsplash.com/bF2vsubyHcQ/1920x1080')",opacity:'0.5'}}>
             <div className="carousel-caption">

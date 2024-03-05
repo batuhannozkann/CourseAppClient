@@ -31,7 +31,6 @@ return(
         <div className="d-flex justify-content-center">
             <div className="col-lg-3 col-10 my-5 text-center border border-dark p-5">
                 <div className="h3">Sign Up</div>
-                <div className="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, cumque?</div>
                 <form onSubmit={signUpFormik.handleSubmit}>
                     <label className="d-flex my-0 py-1">First Name</label>
                     <input value={signUpFormik.values.firstname} name="firstname" onChange={signUpFormik.handleChange} type="text" className="form-control border-dark" id="exampleFormControlInput1" placeholder="Name" />

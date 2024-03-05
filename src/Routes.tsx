@@ -15,6 +15,7 @@ import { ShoppingCartMobile } from './components/basket/shoppingcartmobile.tsx';
 import { Order } from './components/order/order.tsx';
 import { OrderDetail } from './components/order/orderdetail.tsx';
 import { FilteredCourses } from './components/filteredcourses/filteredcourses.tsx';
+import { MyOrders } from './components/userinfo/orders.tsx';
 
 
 
@@ -54,6 +55,9 @@ export const RouteList = ()=>{
       } />
       <Route path="User/Basket" element={
           <ShoppingCartMobile></ShoppingCartMobile>
+      } />
+       <Route path="User/Orders" element={
+          <MyOrders></MyOrders>
       } />
       <Route path="User/Order" element={
           <Order></Order>

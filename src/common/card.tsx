@@ -2,7 +2,7 @@ import  { useEffect, useState } from "react";
 import "./card.css";
 import { FaStar } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import {sliceText} from '../utilties/commonfunctions'
+import {sliceText} from '../utilties/commonFunctions'
 import CardHover from "./cardhover";
 import { DataViewLayoutOptions } from "primereact/dataview";
 import { Dropdown } from "primereact/dropdown";
@@ -70,22 +70,24 @@ const gridItem = (course: any,index:number) => {
         <img style={{height:'25vh'}} src={course?.picture} className="card-img-top rounded-top-md" alt="" />
       </NavLink>
       {/* Card Body */}
-      <div className="card-body" style={isMobile?{}:{minHeight:"20vh"}}>
+      <div className="card-body" style={isMobile?{}:{minHeight:"25vh"}}>
         <NavLink to='#' className="badge bg-dark mb-2">{course?.category.name}</NavLink>
-        <h5 className="card-title">
+        <h6 className="card-title">
           <NavLink to={`Course/View/${course.id}`} className="text-inherit">
            {course?.name}
           </NavLink>
           <br/>
           {Array(4).fill(0).map((_, index) => <i key={index} className=""><FaStar /></i>)}
-        </h5>
+        </h6>
         {/* Media Content */}
         <div className="row align-items-center g-0">
           <div className="col lh-1">
             <h6 className="mb-1">Created: {course.userFullName}</h6>
             <p className="fs-6 mb-0">{new Date(course.createdDate).toLocaleDateString()}</p>
           </div>
-          <div className="col-auto">
+        </div>
+        <div className="row">
+        <div className="col-12">
             <p className="fs-6 mb-0 fw-bold">${course.price}</p>
           </div>
           {isMobile?course.userOwned?<div className="d-flex justify-content-end"><a className="btn btn-sm btn-success">Owned</a></div>:<div className="d-flex justify-content-end"><AddToCart isMobile={isMobile} course={course}></AddToCart></div>:""}
@@ -113,13 +115,13 @@ const listItem = (course: any,index:number) => {
       </NavLink>
       <div className={`${isMobile?"col-8":"col-10"}`}>
         <NavLink to='#' className="badge bg-dark mb-2">{course?.category.name}</NavLink>
-        <h5 className="card-title">
+        <h6 className="card-title">
           <NavLink to={`Course/View/${course.id}`} className="text-inherit">
            {course?.name}
           </NavLink>
           <br/>
           {Array(4).fill(0).map((_, index) => <i key={index} className=""><FaStar /></i>)}
-        </h5>
+        </h6>
         </div>
         {/* Media Content */}
         <div className="row align-items-center g-0 mt-4">

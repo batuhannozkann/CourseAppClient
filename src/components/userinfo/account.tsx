@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import { identityServerApi } from "../../utilties/identityServerApi";
 import { AlertifyLibrary, NotificationPosition } from "../../utilties/Alertify";
 import { TailSpinLoader } from "../../utilties/loading";
+import { NavLink } from "react-router-dom";
 
 const Account = ({updateUser}:any) => {
   const {sendRequest}  = useApi();
@@ -77,9 +78,9 @@ const Account = ({updateUser}:any) => {
     <div className="container-xl px-4 mt-4">
       <nav className="nav nav-borders">
         <a className="nav-link active ms-0" href="#" target="__blank">Profile</a>
-        {/* <a className="nav-link" href="#" target="__blank">Billing</a>
-        <a className="nav-link" href="#" target="__blank">Security</a>
-        <a className="nav-link" href="#" target="__blank">Notifications</a> */}
+        <NavLink className="nav-link" to="/User/Orders">Orders</NavLink>
+        {/* <a className="nav-link" href="#" target="__blank">Security</a>
+        <a className="nav-link" href="#" target="__blank">Notifications</a>  */}
       </nav>
       <hr className="mt-0 mb-4" />
       <div className="row">

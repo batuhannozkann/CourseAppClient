@@ -15,6 +15,7 @@ export const Login = ()=>{
     
     const signIn = useSignIn();
     const navigate = useNavigate();
+    document.title="asdad"
     const loginFormik  = useFormik({
         initialValues:{
             email:"",
@@ -47,7 +48,6 @@ export const Login = ()=>{
         <div className="d-flex justify-content-center">
         <div className="col-lg-3 col-9 my-5 text-center border border-dark p-5">
             <div className="h3">Log In</div>
-            <div className="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, cumque?</div>
             <form onSubmit={loginFormik.handleSubmit}>
             <label className="d-flex my-0 py-1">Email</label>
                     <input type="text" value={loginFormik.values.email} name="email" onChange={loginFormik.handleChange} className="form-control border-dark" id="emailInput" placeholder="name@example.com" />
@@ -60,11 +60,13 @@ export const Login = ()=>{
             <hr className="my-4"></hr>
             <div> 
                     <NavLink
-                        to="/"
-                        className="btn btn-outline-dark w-100"
+                        to="#"
+                        className="btn btn-outline-white w-100"
+                        aria-disabled
                         >
                         <AiOutlineGoogle className="mb-1 me-1"/> Log in with Google
                     </NavLink>
+                    <label className="fw-bolder">Google Authentication is not active currently</label>
             </div>
             <div className="d-flex flex-column my-2">
                     <NavLink

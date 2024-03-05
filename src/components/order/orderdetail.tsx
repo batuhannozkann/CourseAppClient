@@ -2,8 +2,10 @@ import { NavLink, useLocation, useParams } from "react-router-dom";
 import Layout from "../layouts/layout";
 import useApi from "../../utilties/OcelotApi";
 import { useEffect, useState } from "react";
-
+import RequireAuth from "../layouts/RequireAuth";
 import './orderdetail.css'
+import { Loading } from "../../utilties/loading";
+
 
 export const OrderDetail = () => {
     const {id} = useParams()
@@ -18,7 +20,6 @@ export const OrderDetail = () => {
     //   setUser(JSON.parse(getDecryptedCookie("user")));
     // },[])
     useEffect(() =>{
-      console.log(order);
         if(trigger==0)sendRequest('get','order','order',{},`GetOrderByOrderId?id=${id}`).then((x:any)=>{setOrder(x.data)});
         if(order!=undefined)
         {
@@ -29,6 +30,15 @@ export const OrderDetail = () => {
             Promise.all(selectedCourses).then((results:any)=>{setCourses(results)});
         }
     },[trigger])
+    if(order==undefined)
+    {
+        return(
+            <RequireAuth>
+        <Layout>
+            <Loading/>
+        </Layout>
+        </RequireAuth>)
+    }
   return (
     <Layout>
       <div className="container mt-5">
@@ -122,8 +132,8 @@ export const OrderDetail = () => {
             <div className="row my-4">
                 <div className="col-sm-6">
                     <div className="text-sm-end mt-2 mt-sm-0">
-                        <a href="/User/PurchasedCourses" className="btn btn-success">
-                            <i className="mdi mdi-cart-outline me-1"></i> Continue Learn </a>
+                        <NavLink to="/User/PurchasedCourses" className="btn btn-success">
+                            <i className="mdi mdi-cart-outline me-1"></i> Continue Learn </NavLink>
                     </div>
                 </div> {/* end col */}
             </div> {/* end row*/}
@@ -172,99 +182,6 @@ export const OrderDetail = () => {
     {/* end row */}
     
 </div>
-
-    
-    {/* <div className="shoppingcart" onClick={(event:any)=>{event.stopPropagation()}}>
-        <div className="row d-flex justify-content-center align-items-center h-100">
-          <div className="col">
-            <div className="card">
-              <div className="card-body p-4">
-
-                <div className="row">
-
-                  <div className="col-lg-7">
-                    <h5 className="mb-3">Order Detail</h5>
-                    <hr />
-
-                    <div className="d-flex justify-content-between align-items-center mb-4">
-                      <div>
-                        <p className="mb-1">Order created date: {new Date(order?.createdDate).toLocaleString()}</p>
-                        <p className="mb-0">You have {order?.orderItems.length} items in your order</p>
-                      </div>
-                      <div>
-                        <p className="mb-0"><span className="text-muted">Sort by:</span> <a href="#!"
-                            className="text-body">price <i className="fas fa-angle-down mt-1"></i></a></p>
-                      </div>
-                    </div>
-                    {order?.orderItems.map((x:OrderItemDto)=>{
-                      return(
-                        <div key={x.productId} className="card mb-3">
-                       <div className="card-body">
-                         <div className="d-flex justify-content-between">
-                           <div className="d-flex flex-row align-items-center">
-                             <div>
-                               <img
-                                 src={x.pictureUrl}
-                                 className="img-fluid rounded-3" alt="Shopping item" style={{ width: '65px' }} />
-                             </div>
-                             <div className="ms-3">
-                               <h5>{x.productName}</h5>
-                               <p className="small mb-0"></p>
-                             </div>
-                           </div>
-                           <div className="d-flex flex-row align-items-center">
-                             <div style={{ width: '50px' }}>
-                             </div>
-                             <div style={{ width: '80px' }}>
-                               <h5 className="mb-0">${x.price}</h5>
-                             </div>
-                             <a><i class="fas fa-chevron-down"></i></a>
-                           </div>
-                         </div>
-                       </div>
-                     </div>
-                      )
-                    })}
-
-
-                  </div>
-                  <div className="col-lg-5">
-                    <div className="card bg-primary text-white rounded-3">
-                      <div className="card-body">
-                        <div className="d-flex justify-content-between align-items-center mb-4">
-                          <h5 className="mb-0">Total</h5>
-                          <img src={user?.picture}
-                            className="img-fluid rounded-3" style={{ width: '45px' }} alt="Avatar" />
-                        </div>
-                        <hr className="my-4" />
-
-                        <div className="d-flex justify-content-between">
-                          <p className="mb-2">Subtotal</p>
-                          <p className="mb-2">${order?.totalPrice}</p>
-                        </div>
-
-                        <div className="d-flex justify-content-between">
-                          <p className="mb-2">Shipping</p>
-                          <p className="mb-2">$0</p>
-                        </div>
-
-                        <div className="d-flex justify-content-between mb-4">
-                          <p className="mb-2">Total(Incl. taxes)</p>
-                          <p className="mb-2">${order?.totalPrice}</p>
-                        </div>
-
-                      </div>
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </Layout>
   );
 };

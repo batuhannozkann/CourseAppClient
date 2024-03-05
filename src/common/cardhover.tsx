@@ -1,5 +1,5 @@
 import useApi from "../utilties/OcelotApi";
-import { sliceText } from "../utilties/commonfunctions";
+import { sliceText } from "../utilties/commonFunctions";
 import { TailSpinLoader } from "../utilties/loading";
 import AddToCart from "./addtocart";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -33,7 +33,7 @@ const CardHover = ({course}:any)=>{
               
             </div>
             <div className="ms-lg-4">
-              <div className="row"><img height={"60vh"} className="col-3 rounded-circle" src={course?.picture}/><NavLink to={`Course/View/${course.id}`} className="mb-0 h4 text-primary col-9">{course?.name}</NavLink></div>
+              <div className="row"><img height={"60vh"} className="col-3" src={course?.picture}/><NavLink to={`Course/View/${course.id}`} className="mb-0 h5 text-primary col-9">{course?.name}</NavLink></div>
               <NavLink onClick={()=>{handleCategoryClick(course?.categoryId);console.log(course)}} to={'#'} className="badge bg-dark text-white fw-light fs-7">{course?.category.name}</NavLink>
               <p className="fs-6 mb-1 text-warning">
                 
@@ -49,7 +49,7 @@ const CardHover = ({course}:any)=>{
                 </span>
               </p>
               <p>
-                 {sliceText(course?.description,250)}
+                 {sliceText(course?.description,150)}
               </p>
               <div className="">
               <NavLink to={`Course/View/${course.id}`} className="btn btn-outline-secondary btn-sm">

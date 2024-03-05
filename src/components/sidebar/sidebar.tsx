@@ -6,7 +6,7 @@ import { BiSolidPurchaseTag } from "react-icons/bi";
 import { BsCollectionPlayFill } from "react-icons/bs";
 import { IoMdAddCircle } from "react-icons/io";
 import { identityServerApi } from '../../utilties/identityServerApi';
-import {useAuthUser} from 'react-auth-kit';
+import {useAuthUser, useSignOut} from 'react-auth-kit';
 import Cookies from 'js-cookie';
 import {useIsAuthenticated} from 'react-auth-kit'
 import { setEncryptedCookie, getDecryptedCookie } from '../../utilties/cookieHelper';
@@ -14,6 +14,7 @@ import Select from 'react-select'
 import useApi from '../../utilties/OcelotApi';
 import { useFormik } from 'formik';
 import { Dialog } from 'primereact/dialog';
+import { PiShoppingBagBold } from "react-icons/pi";
 import { TiShoppingCart } from 'react-icons/ti';
 
 
@@ -52,6 +53,7 @@ const MobileNavbar = () => {
   })) || [];
   const [visible, setVisible] = useState(false);
   const [triggerCart,setTriggerCart] = useState(0);
+  
   return (
     <nav className="navbar mobile-navbar navbar-dark bg-dark">
       <div className="container-fluid">
@@ -61,6 +63,9 @@ const MobileNavbar = () => {
         <ul className="navbar-nav d-flex flex-row">
           <li className="nav-item">
             <NavLink to="/" className="nav-link">Home</NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/User/Orders" className="nav-link">Orders</NavLink>
           </li>
           <li className="nav-item">
             <a onClick={()=>{setVisible(true)}} className="nav-link">Filter</a>
@@ -115,6 +120,7 @@ const MobileNavbar = () => {
   );
 };
 const AuthenticatedSidebar = (props: any) => {
+  const signOut = useSignOut();
   const navigate = useNavigate();
   const filterFormik = useFormik({
     initialValues:{
@@ -167,7 +173,7 @@ const AuthenticatedSidebar = (props: any) => {
         </NavLink>
         <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
           <li>
-            <NavLink className="dropdown-item" to="#">
+            <NavLink className="dropdown-item" onClick={()=>{signOut();navigate("/");Cookies.remove('userInfo');Cookies.remove('user')}} to="/">
               Sign out
             </NavLink>
           </li>
@@ -185,6 +191,18 @@ const AuthenticatedSidebar = (props: any) => {
           >
             <FaUserAlt className="me-2" />
             <span>Account</span>
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink
+            to="/User/Orders"
+            className={({ isActive, isPending }) =>
+              isPending ? "" : isActive ? "nav-link text-white active " : "nav-link text-white"
+            }
+            aria-current="page"
+          >
+            <PiShoppingBagBold className="me-2" />
+            <span>Orders</span>
           </NavLink>
         </li>
         <li className="nav-item">

@@ -1,6 +1,6 @@
 import {useEffect,useState} from "react";
 import  "./navbar.css"
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {useIsAuthenticated} from 'react-auth-kit'
 import {useSignOut} from 'react-auth-kit';
 import {useAuthUser} from 'react-auth-kit';
@@ -15,6 +15,7 @@ export const Navbar = ({updateUser}:any)=>{
     
     const isAuthenticated = useIsAuthenticated();
     const authUser:any = useAuthUser();
+    const navigate = useNavigate();
     const [triggerCart,setTriggerCart] = useState(0);
     const signOut = useSignOut();
     const [user,setUser]:any = useState();
@@ -32,7 +33,7 @@ export const Navbar = ({updateUser}:any)=>{
         <>
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark border-dark">
     <div className="container-fluid row m-2">
-        <a href="#" className ={`${isMobile?"col-3":"col-1"} logo`}><img className={`navbar-brand h-100 ${isMobile?"w-100":""}`} src="https://firebasestorage.googleapis.com/v0/b/courseapplication-f3e34.appspot.com/o/logo.png?alt=media&token=12ea7708-7c5d-4a44-9860-087135530669"></img></a>
+        <NavLink to="/" className ={`${isMobile?"col-3":"col-1"} logo`}><img className={`navbar-brand h-100 ${isMobile?"w-100":""}`} src="https://firebasestorage.googleapis.com/v0/b/courseapplication-f3e34.appspot.com/o/logo.png?alt=media&token=12ea7708-7c5d-4a44-9860-087135530669"></img></NavLink>
         <button className="navbar-toggler col-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
@@ -80,7 +81,7 @@ export const Navbar = ({updateUser}:any)=>{
                                                 <strong>{user?.firstName}</strong>
                                             </NavLink>
                                             <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                                                <li><a style={{cursor:'pointer'}} className="dropdown-item" onClick={()=>{signOut();window.location.reload();Cookies.remove('userInfo');Cookies.remove('user')}}>Sign out</a></li>
+                                                <li><a style={{cursor:'pointer'}} className="dropdown-item" onClick={()=>{signOut();navigate("/");Cookies.remove('userInfo');Cookies.remove('user')}}>Sign out</a></li>
                                                 <li> <NavLink className="dropdown-item" to="/User/">Account
                                             </NavLink></li>
                                             </ul>
