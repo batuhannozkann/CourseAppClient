@@ -15,7 +15,6 @@ export const Login = ()=>{
     
     const signIn = useSignIn();
     const navigate = useNavigate();
-    document.title="asdad"
     const loginFormik  = useFormik({
         initialValues:{
             email:"",
