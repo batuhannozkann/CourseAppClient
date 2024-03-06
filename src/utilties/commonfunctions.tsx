@@ -4,4 +4,5 @@ export const sliceText=(text:string,characterLimit:number)=>
         return text.slice(0, characterLimit) + '...';
       }
       return text;
+      ///
 }
