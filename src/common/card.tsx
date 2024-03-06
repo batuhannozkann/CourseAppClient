@@ -2,8 +2,8 @@ import  { useEffect, useState } from "react";
 import "./card.css";
 import { FaStar } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import {sliceText} from '../utilties/commonFunctions'
 import CardHover from "./cardhover";
+import { sliceText } from "../utilties/functions";
 import { DataViewLayoutOptions } from "primereact/dataview";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";

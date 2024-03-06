@@ -2,7 +2,7 @@ import  { useState, useEffect } from 'react';
 import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 import { classNames } from 'primereact/utils';
 import { NavLink } from 'react-router-dom';
-import { sliceText } from '../../utilties/commonFunctions';
+import { sliceText } from "../../utilties/functions";
 import { Dropdown } from 'primereact/dropdown';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { Dialog } from 'primereact/dialog';

@@ -1,8 +1,8 @@
 import useApi from "../utilties/OcelotApi";
-import { sliceText } from "../utilties/commonFunctions";
 import { TailSpinLoader } from "../utilties/loading";
 import AddToCart from "./addtocart";
 import { NavLink, useNavigate } from "react-router-dom";
+import { sliceText } from "../utilties/functions";
 
 
 const CardHover = ({course}:any)=>{
