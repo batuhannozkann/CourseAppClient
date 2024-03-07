@@ -2,7 +2,9 @@ import { MutatingDots } from 'react-loader-spinner';
 import { TailSpin } from 'react-loader-spinner';
 export const Loading = ()=>{
     return (
-        <div style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)'}} className=""><MutatingDots
+        
+        <div style={{position:'absolute',top:'50%',left:'50%',transform:'translate(-50%,-50%)'}} className="">
+            <MutatingDots
   visible={true}
   height="100"
   width="100"
@@ -13,6 +15,7 @@ export const Loading = ()=>{
   wrapperStyle={{}}
   wrapperClass=""
   /></div>
+  
     );
 }
 export const TailSpinLoader = ()=>{

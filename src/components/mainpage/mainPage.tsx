@@ -18,6 +18,7 @@ export const MainPage = ()=>{
     {
         return (
             <Layout>
+                <div className="d-flex justify-content-center text-danger mt-5">Servers may be slow because they are free, wait a bit for loading</div>
             <Loading></Loading>
             </Layout>
         )
