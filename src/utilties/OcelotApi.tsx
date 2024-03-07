@@ -118,6 +118,7 @@ const useApi = () => {
       if(error.response.status==401)
       {
         signOut();
+        window.location.reload();
         
       }
     } finally {
